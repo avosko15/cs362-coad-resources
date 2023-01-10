@@ -1,3 +1,4 @@
+<!--bink-->
 # Central Oregon COAD
 
 This is the GitHub repository for the Central Oregon Community Organizations Active
