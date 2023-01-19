@@ -1,3 +1,4 @@
+# 
 class Ticket < ApplicationRecord
 
   belongs_to :region
