@@ -1,3 +1,4 @@
+# Defines a region location where tickets created in that zone are organized into.
 class Region < ApplicationRecord
 
   has_many :tickets

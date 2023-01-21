@@ -1,3 +1,4 @@
+# Defines an organization involved with COAD, which offer resources to complete tickets.
 class Organization < ApplicationRecord
 
   attr_accessor :agreement_one, :agreement_two, :agreement_three, :agreement_four, :agreement_five, :agreement_six, :agreement_seven, :agreement_eight

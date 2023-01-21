@@ -1,3 +1,4 @@
+# Defines a ticket, which is the collection of information made by a user to request help.
 class Ticket < ApplicationRecord
 
   belongs_to :region
