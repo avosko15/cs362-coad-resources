@@ -1,4 +1,4 @@
-# 
+# Defines a resource category, which further specializes the type of help requested.
 class ResourceCategory < ApplicationRecord
 
   has_and_belongs_to_many :organizations

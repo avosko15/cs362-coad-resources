@@ -1,4 +1,4 @@
-# 
+# Defines a user, who makes tickets for help or volunteers to help.
 class User < ApplicationRecord
 
   enum role: [:admin, :organization]
