@@ -17,8 +17,7 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to respond_to(:primary_name) }
   it { is_expected.to respond_to(:secondary_name) }
   it { is_expected.to respond_to(:secondary_phone) }
-  # t.string "secondary_name"
-  # t.string "secondary_phone"
-  # t.string "title"
-  # t.integer "transportation"
+  it { is_expected.to respond_to(:title) }
+  it { is_expected.to respond_to(:transportation) }
+  
 end
