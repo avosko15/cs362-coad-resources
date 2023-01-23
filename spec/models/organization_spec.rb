@@ -6,6 +6,16 @@ RSpec.describe Organization, type: :model do
   #   Organization.new
   # end
 
+  # attributes from att_accessor
+  it { is_expected.to respond_to(:agreement_one) }
+  it { is_expected.to respond_to(:agreement_two) }
+  it { is_expected.to respond_to(:agreement_three) }
+  it { is_expected.to respond_to(:agreement_four) }
+  it { is_expected.to respond_to(:agreement_five) }
+  it { is_expected.to respond_to(:agreement_six) }
+  it { is_expected.to respond_to(:agreement_seven) }
+  it { is_expected.to respond_to(:agreement_eight) }
+
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:status) }
   it { is_expected.to respond_to(:phone) }
