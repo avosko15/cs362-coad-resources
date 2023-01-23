@@ -12,12 +12,9 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:description) }
   it { is_expected.to respond_to(:rejection_reason) }
-  # t.string "description"
-  # t.string "rejection_reason"
-  # t.datetime "created_at", null: false
-  # t.datetime "updated_at", null: false
-  # t.boolean "liability_insurance", default: false
-  # t.string "primary_name"
+  it { is_expected.to respond_to(:name) }
+  it { is_expected.to respond_to(:liability_insurance) }
+  it { is_expected.to respond_to(:primary_name) }
   # t.string "secondary_name"
   # t.string "secondary_phone"
   # t.string "title"
