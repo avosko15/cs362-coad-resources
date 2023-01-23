@@ -8,9 +8,8 @@ RSpec.describe Organization, type: :model do
 
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:status) }
-  # t.integer "status"
-  # t.string "phone"
-  # t.string "email"
+  it { is_expected.to respond_to(:phone) }
+  it { is_expected.to respond_to(:email) }
   # t.string "description"
   # t.string "rejection_reason"
   # t.datetime "created_at", null: false
