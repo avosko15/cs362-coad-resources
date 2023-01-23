@@ -15,6 +15,8 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:liability_insurance) }
   it { is_expected.to respond_to(:primary_name) }
+  it { is_expected.to respond_to(:secondary_name) }
+  it { is_expected.to respond_to(:secondary_phone) }
   # t.string "secondary_name"
   # t.string "secondary_phone"
   # t.string "title"
