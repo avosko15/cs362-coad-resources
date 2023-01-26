@@ -6,6 +6,11 @@ RSpec.describe Ticket, type: :model do
   #   Ticket.new
   # end
 
+  it "is open upon creation" do
+    t = Ticket.new
+    expect(t.open?).to eq(true)
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:description) }
