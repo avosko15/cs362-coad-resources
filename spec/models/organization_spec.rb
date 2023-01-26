@@ -16,6 +16,7 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to respond_to(:agreement_seven) }
   it { is_expected.to respond_to(:agreement_eight) }
 
+  # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:status) }
   it { is_expected.to respond_to(:phone) }
@@ -28,5 +29,10 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to respond_to(:secondary_phone) }
   it { is_expected.to respond_to(:title) }
   it { is_expected.to respond_to(:transportation) }
+
+  # associations
+  it { is_expected.to have_many(:users) }
+  it { is_expected.to have_many(:tickets) }
+  it { is_expected.to have_and_belong_to_many(:resource_categories) }
 
 end
