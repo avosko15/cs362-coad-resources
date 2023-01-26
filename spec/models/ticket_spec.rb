@@ -6,6 +6,7 @@ RSpec.describe Ticket, type: :model do
   #   Ticket.new
   # end
 
+  # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:description) }
   it { is_expected.to respond_to(:phone) }
