@@ -43,7 +43,8 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to validate_presence_of(:secondary_name) }
   it { is_expected.to validate_presence_of(:secondary_phone) }
   it { is_expected.to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
-  # validates :email, format: { with: VALID_EMAIL_REGEX }
+  it { is_expected.to allow_value('user@example.com').for(:email) }
+  it { is_expected.not_to allow_value('userexample.com').for(:email) }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive}
   it { is_expected.to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
