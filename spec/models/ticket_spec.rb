@@ -13,4 +13,9 @@ RSpec.describe Ticket, type: :model do
   it { is_expected.to respond_to(:closed) }
   it { is_expected.to respond_to(:closed_at) }
 
+  # associations
+  it { is_expected.to belong_to(:region) }
+  it { is_expected.to belong_to(:resource_category) }
+  # it { is_expected.to belong_to(:organization).optional }
+
 end
