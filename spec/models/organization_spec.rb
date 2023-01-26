@@ -6,6 +6,11 @@ RSpec.describe Organization, type: :model do
   #   Organization.new
   # end
 
+  it "is initialized with submitted status" do
+    o = Organization.new
+    expect(o.status).to eq("submitted")
+  end
+
   # attributes from att_accessor
   it { is_expected.to respond_to(:agreement_one) }
   it { is_expected.to respond_to(:agreement_two) }
