@@ -16,6 +16,12 @@ RSpec.describe User, type: :model do
     expect(u.role).to eq("organization")
   end
 
+  it "can have a nil organization" do
+    u = User.new
+    u.role = nil
+    expect(u.role).to eq(nil)
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:role) }
