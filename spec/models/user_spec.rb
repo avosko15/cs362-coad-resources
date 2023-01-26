@@ -6,6 +6,35 @@ RSpec.describe User, type: :model do
   #   User.new
   # end
 
+  it "returns its own email" do
+    u = User.new(email: "bario54321@gmail.com")
+    expect(u.to_s).to eq("bario54321@gmail.com")
+  end
+
+  it "has an role on creation" do
+    u = User.new
+    expect(u.role).to eq("organization")
+  end
+
+  it "can have a nil role" do
+    u = User.new
+    u.role = nil
+    expect(u.role).to eq(nil)
+  end
+
+  it "can set nil role to organization" do
+    u = User.new
+    u.role = nil
+    u.set_default_role
+    expect(u.role).to eq("organization")
+  end
+
+  it "won't change default role" do
+    u = User.new
+    u.set_default_role
+    expect(u.role).to eq("organization")
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:role) }
