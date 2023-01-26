@@ -6,6 +6,16 @@ RSpec.describe User, type: :model do
   #   User.new
   # end
 
+  it "returns its own email" do
+    u = User.new(email: "bario54321@gmail.com")
+    expect(u.to_s).to eq("bario54321@gmail.com")
+  end
+
+  it "has an organization on creation" do
+    u = User.new
+    expect(u.role).to eq("organization")
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:role) }
@@ -15,6 +25,7 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
+  
   # validates :email, format: { with: VALID_EMAIL_REGEX }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to validate_presence_of(:password).on(:create) }
