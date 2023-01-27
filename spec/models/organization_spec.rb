@@ -22,6 +22,13 @@ RSpec.describe Organization, type: :model do
     o = Organization.new
     expect(o.status).to eq("submitted")
   end
+
+  it "can set nil status to submitted" do
+    o = Organization.new
+    o.status = nil
+    o.set_default_status
+    expect(o.status).to eq("submitted")
+  end
   
   
 
