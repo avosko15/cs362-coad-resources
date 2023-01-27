@@ -11,6 +11,12 @@ RSpec.describe ResourceCategory, type: :model do
     expect(r.active).to eq(true)
   end
 
+  it "can be deactivated" do
+    r = ResourceCategory.new
+    r.deactivate
+    expect(r.active).to eq(false)
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:active) }
