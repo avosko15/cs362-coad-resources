@@ -18,8 +18,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   # it "can recognize claimed tickets" do
-  #   o = Organization.new(id: 1, name: "Blue Cross")
-  #   t = Ticket.new(organization_id: 1)
+  #   t = Ticket.new
   #   expect(t.captured?).to eq(true)
   # end
 
