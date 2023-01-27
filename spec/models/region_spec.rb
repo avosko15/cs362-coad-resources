@@ -17,6 +17,11 @@ RSpec.describe Region, type: :model do
   #   result = region.to_s
   # end
 
+  it "returns its own name" do
+    r = Region.new(name: "Sisters")
+    expect(r.to_s).to eq("Sisters")
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
 
