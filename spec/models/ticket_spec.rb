@@ -17,6 +17,17 @@ RSpec.describe Ticket, type: :model do
     expect(t.open?).to eq(false)
   end
 
+  # it "can recognize claimed tickets" do
+  #   o = Organization.new(id: 1, name: "Blue Cross")
+  #   t = Ticket.new(organization_id: 1)
+  #   expect(t.captured?).to eq(true)
+  # end
+
+  it "is unclaimed upon creation" do
+    t = Ticket.new
+    expect(t.captured?).to eq(false)
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:description) }
