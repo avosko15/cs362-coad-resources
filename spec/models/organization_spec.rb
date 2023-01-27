@@ -17,6 +17,14 @@ RSpec.describe Organization, type: :model do
     expect(o.status).to eq("approved")
   end
 
+  it "can be rejected" do
+    o = Organization.new
+    o.reject
+    expect(o.status).to eq("rejected")
+  end
+  
+
+
   # attributes from att_accessor
   it { is_expected.to respond_to(:agreement_one) }
   it { is_expected.to respond_to(:agreement_two) }
