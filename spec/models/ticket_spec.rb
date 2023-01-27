@@ -28,6 +28,11 @@ RSpec.describe Ticket, type: :model do
     expect(t.captured?).to eq(false)
   end
 
+  it "can return its own id" do
+    t = Ticket.new(id: 50)
+    expect(t.to_s).to eq("Ticket 50")
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:description) }
