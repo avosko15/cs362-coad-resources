@@ -28,6 +28,11 @@ RSpec.describe ResourceCategory, type: :model do
     expect(r.inactive?).to eq(true)
   end
 
+  it "can display its own name" do 
+    r = ResourceCategory.new(name: "Snow")
+    expect(r.to_s).to eq("Snow")
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:active) }
