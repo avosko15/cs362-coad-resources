@@ -6,6 +6,11 @@ RSpec.describe ResourceCategory, type: :model do
   #   ResourceCategory.new
   # end
 
+  it "is initialized as active" do
+    r = ResourceCategory.new
+    expect(r.active).to eq(true)
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:active) }
