@@ -17,6 +17,11 @@ RSpec.describe ResourceCategory, type: :model do
     expect(r.active).to eq(false)
   end
 
+  it "recognizes its own activity" do
+    r = ResourceCategory.new
+    expect(r.inactive?).to eq(false)
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:active) }
