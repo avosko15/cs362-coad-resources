@@ -42,6 +42,7 @@ RSpec.describe User, type: :model do
   # associations
   it { is_expected.to belong_to(:organization).optional }
 
+  # validations
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
   it { is_expected.to allow_value('user@example.com').for(:email) }

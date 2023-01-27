@@ -54,6 +54,7 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to have_many(:tickets) }
   it { is_expected.to have_and_belong_to_many(:resource_categories) }
 
+  # validations
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:phone) }
