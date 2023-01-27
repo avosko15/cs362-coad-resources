@@ -17,10 +17,11 @@ RSpec.describe Ticket, type: :model do
     expect(t.open?).to eq(false)
   end
 
-  # it "can recognize claimed tickets" do
-  #   t = Ticket.new
-  #   expect(t.captured?).to eq(true)
-  # end
+  it "can recognize claimed tickets" do
+    o = Organization.create(id: 3, name: "Blue Cross", email: "example@domain.com", phone: "555-555-5555", secondary_phone: "444-444-4444", primary_name: "Blue Cross", secondary_name: "BC")
+    t = Ticket.new(organization_id: 3)
+    expect(t.captured?).to eq(true)
+  end
 
   it "is unclaimed upon creation" do
     t = Ticket.new
