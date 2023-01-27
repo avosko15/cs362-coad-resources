@@ -29,6 +29,7 @@ RSpec.describe Ticket, type: :model do
   it { is_expected.to belong_to(:resource_category) }
   it { is_expected.to belong_to(:organization).optional }
 
+  # validations
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:phone) }
   it { is_expected.to validate_presence_of(:region_id) }
