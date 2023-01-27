@@ -22,6 +22,12 @@ RSpec.describe ResourceCategory, type: :model do
     expect(r.inactive?).to eq(false)
   end
 
+  it "recognizes its own inactivity" do
+    r = ResourceCategory.new
+    r.deactivate
+    expect(r.inactive?).to eq(true)
+  end
+
   # attributes used in database
   it { is_expected.to respond_to(:name) }
   it { is_expected.to respond_to(:active) }
