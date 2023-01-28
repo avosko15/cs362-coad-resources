@@ -38,6 +38,7 @@ RSpec.describe Ticket, type: :model do
   it { is_expected.to validate_length_of(:description).is_at_most(1020).on(:create) }
   it { is_expected.to allow_value('+1 503 344 4567').for(:phone) }
   it { is_expected.not_to allow_value('userexample.com').for(:phone) }
-  # it { is_expected.to validate_plausible_phone(:phone) }
+  # it { is_expected.to validate_plausible_phone(:phone) } - added by E, we can take this out eventually but Beej is 
+  #     investigating so leave it for now
 
 end

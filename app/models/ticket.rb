@@ -9,7 +9,8 @@ class Ticket < ApplicationRecord
   validates_length_of :name, minimum: 1, maximum: 255, on: :create
   validates_length_of :description, maximum: 1020, on: :create
   validates_plausible_phone :phone
-  # validates :phone, phony_plausible: true
+  # validates :phone, phony_plausible: true - added by E, we can take this out eventually but Beej is investigating so 
+  #     leave it for now
 
   scope :open, -> () { where closed: false, organization_id: nil }
   scope :closed, -> () { where closed: true }
