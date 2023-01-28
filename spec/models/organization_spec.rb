@@ -22,7 +22,25 @@ RSpec.describe Organization, type: :model do
     o = Organization.new
     expect(o.status).to eq("submitted")
   end
+
+  it "can set nil status to submitted" do
+    o = Organization.new
+    o.status = nil
+    o.set_default_status
+    expect(o.status).to eq("submitted")
+  end
+
+  it "wont set reset status" do
+    o = Organization.new
+    o.approve
+    o.set_default_status
+    expect(o.status).to eq("approved")
+  end
   
+  it "returns its own name" do
+    o = Organization.new(name:"Blue Cross")
+    expect(o.to_s).to eq("Blue Cross")
+  end
   
 
   # attributes from att_accessor

@@ -17,8 +17,12 @@ RSpec.describe Region, type: :model do
   #   result = region.to_s
   # end
 
+  it "returns its own name" do
+    r = Region.new(name: "Sisters")
+    expect(r.to_s).to eq("Sisters")
+  end
+
   # class functions
-  
   # def self.unspecified
   #   Region.find_or_create_by(name: 'Unspecified')
   # end
