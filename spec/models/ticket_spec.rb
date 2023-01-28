@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 RSpec.describe Ticket, type: :model do
 
   # it "exists" do
@@ -56,4 +57,49 @@ RSpec.describe Ticket, type: :model do
   it { is_expected.not_to allow_value('userexample.com').for(:phone) }
   # it { is_expected.to validate_plausible_phone(:phone) }
 
+  #imma try the scope test 
+
+  it "should return only open resources" do
+    open_resource = Resource.create(closed: false, organization_id: nil)
+    closed_resource = Resource.create(closed: true)
+  
+    expect(Resource.open).to eq([open_resource])
+  end
+  
+  it "should return only closed resources" do
+    closed_resource = Resource.create(closed: true)
+  
+    expect(Resource.closed).to eq([closed_resource])
+  end
+  
+  it "should return only resources where organization_id is not nil" do
+    all_organization_resource = Resource.create(closed: false, organization_id: 1)
+  
+    expect(Resource.all_organization).to eq([all_organization_resource])
+  end
+  
+  it "should return only resources where organization_id is the specified value and closed is false" do
+    organization_resource = Resource.create(organization_id: 1, closed: false)
+  
+    expect(Resource.organization(1)).to eq([organization_resource])
+  end
+  
+  it "should return only resources where organization_id is the specified value and closed is true" do
+    closed_organization_resource = Resource.create(organization_id: 1, closed: true)
+  
+    expect(Resource.closed_organization(1)).to eq([closed_organization_resource])
+  end
+  
+  it "should return only resources where region_id is the specified value" do
+    region_resource = Resource.create(region_id: 1)
+  
+    expect(Resource.region(1)).to eq([region_resource])
+  end
+  
+  it "should return only resources where resource_category_id is the specified value" do
+    resource_category_resource = Resource.create(resource_category_id: 1)
+  
+    expect(Resource.resource_category(1)).to eq([resource_category_resource])
+  end
+  
 end
