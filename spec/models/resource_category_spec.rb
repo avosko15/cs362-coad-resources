@@ -2,9 +2,33 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
+  # instantiation - 2.2
+
   # it "exists" do
   #   ResourceCategory.new
   # end
+
+
+  # attributes used in database - 2.4
+
+  it { is_expected.to respond_to(:name) }
+  it { is_expected.to respond_to(:active) }
+
+
+  # associations - 2.6
+
+  it { is_expected.to have_and_belong_to_many(:organizations) }
+  it { is_expected.to have_many(:tickets) }
+
+
+  # validations - 3.1
+
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
+  it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
+
+
+  # member functions - 3.2
 
   it "is initialized as active" do
     r = ResourceCategory.new
@@ -33,26 +57,17 @@ RSpec.describe ResourceCategory, type: :model do
     expect(r.to_s).to eq("Snow")
   end
 
-  # attributes used in database
-  it { is_expected.to respond_to(:name) }
-  it { is_expected.to respond_to(:active) }
-
-  # associations
-  it { is_expected.to have_and_belong_to_many(:organizations) }
-  it { is_expected.to have_many(:tickets) }
-
-  # validations
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
-  it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
 
   # class functions - 3.3
+
   it "can find or create ResourceCategory record with name 'Unspecified'" do
     rc = ResourceCategory.unspecified
     expect(rc.name).to eq("Unspecified")
   end
 
-    #3.4 Anna trying to do scope test
+
+  # 3.4 Anna trying to do scope test
+  
   it "can query for active catagories" do
     active1 = ResourceCategory.create!(name: "Test1", active: true)
     active2 = ResourceCategory.create!(name: "Test2", active: true)

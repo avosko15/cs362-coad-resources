@@ -2,10 +2,37 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
+  # instantiation - 2.2
+
   # it "exists" do
   #   User.new
   # end
 
+
+  # attributes used in database - 2.4
+
+  it { is_expected.to respond_to(:email) }
+  it { is_expected.to respond_to(:role) }
+
+
+  # associations - 2.6
+
+  it { is_expected.to belong_to(:organization).optional }
+
+
+  # validations - 3.1
+  
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
+  it { is_expected.to allow_value('user@example.com').for(:email) }
+  it { is_expected.not_to allow_value('userexample.com').for(:email) }
+  it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+  it { is_expected.to validate_presence_of(:password).on(:create) }
+  it { is_expected.to validate_length_of(:password).is_at_least(7).is_at_most(255).on(:create) }
+
+
+  # member functions - 3.2
+  
   it "returns its own email" do
     u = User.new(email: "bario54321@gmail.com")
     expect(u.to_s).to eq("bario54321@gmail.com")
@@ -34,21 +61,5 @@ RSpec.describe User, type: :model do
     u.set_default_role
     expect(u.role).to eq("organization")
   end
-
-  # attributes used in database
-  it { is_expected.to respond_to(:email) }
-  it { is_expected.to respond_to(:role) }
-
-  # associations
-  it { is_expected.to belong_to(:organization).optional }
-
-  # validations
-  it { is_expected.to validate_presence_of(:email) }
-  it { is_expected.to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
-  it { is_expected.to allow_value('user@example.com').for(:email) }
-  it { is_expected.not_to allow_value('userexample.com').for(:email) }
-  it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
-  it { is_expected.to validate_presence_of(:password).on(:create) }
-  it { is_expected.to validate_length_of(:password).is_at_least(7).is_at_most(255).on(:create) }
 
 end
