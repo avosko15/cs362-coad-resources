@@ -80,4 +80,5 @@ RSpec.describe ResourceCategory, type: :model do
     inactive2= ResourceCategory.create!(name: "Test2", active: false)
 
     expect(ResourceCategory.inactive).to contain_exactly(inactive1, inactive2)
+  end
 end
