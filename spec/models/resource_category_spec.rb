@@ -77,7 +77,8 @@ RSpec.describe ResourceCategory, type: :model do
 
   it "can query for inactive categories" do
     inactive1 = ResourceCategory.create!(name: "Test1", active: false)
-    inactive2= ResourceCategory.create!(name: "Test2", active: false)
+    inactive2 = ResourceCategory.create!(name: "Test2", active: false)
 
     expect(ResourceCategory.inactive).to contain_exactly(inactive1, inactive2)
+  end
 end
