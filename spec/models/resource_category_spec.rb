@@ -68,14 +68,14 @@ RSpec.describe ResourceCategory, type: :model do
 
   # 3.4 Anna trying to do scope test
   
-  it "can query for active catagories" do
+  it "can query for active categories" do
     active1 = ResourceCategory.create!(name: "Test1", active: true)
     active2 = ResourceCategory.create!(name: "Test2", active: true)
    
     expect(ResourceCategory.active).to contain_exactly(active1, active2)
   end
 
-  it "can query for inactive catagories" do
+  it "can query for inactive categories" do
     inactive1 = ResourceCategory.create!(name: "Test1", active: false)
     inactive2= ResourceCategory.create!(name: "Test2", active: false)
 
