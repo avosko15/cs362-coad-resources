@@ -72,11 +72,11 @@ RSpec.describe Ticket, type: :model do
 
   #imma try the scope test - 3.4
 
-  it "should return only open resources" do
-    open_resource = Resource.create(closed: false, organization_id: nil)
-    closed_resource = Resource.create(closed: true)
+  it "should return only open tickets" do
+    open_ticket = Ticket.create!(name: "Test1", closed: false)
+    closed_ticket = Ticket.create!(name: "Test2",closed: true)
   
-    expect(Resource.open).to eq([open_resource])
+    expect(Ticket.open).to eq([open_ticket])
   end
   
   it "should return only closed resources" do
