@@ -49,10 +49,9 @@ RSpec.describe User, type: :model do
   end
 
   it "can set nil role to organization" do
-    u = User.new
-    u.role = nil
-    u.set_default_role
-    expect(u.role).to eq("organization")
+    user.role = nil
+    user.set_default_role
+    expect(user.role).to eq("organization")
   end
 
   it "won't change default role" do
