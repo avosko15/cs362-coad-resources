@@ -1,6 +1,12 @@
 require 'rails_helper'
 
+
 RSpec.describe Organization, type: :model do
+
+  setup do
+    @default_org = build(:organization)
+    @named_org = build(:organization, :name => "Blue Cross")
+  end
 
   # instantiation - 2.2
 
@@ -62,41 +68,41 @@ RSpec.describe Organization, type: :model do
   it { is_expected.to validate_length_of(:description).is_at_most(1020).on(:create) }
 
 
-  # member functions - 3.2
+  # member functions - 3.2 | factory update - 4.0
 
   it "can be approved" do
-    o = Organization.new
+    o = @default_org
     o.approve
     expect(o.status).to eq("approved")
   end
 
   it "can be rejected" do
-    o = Organization.new
+    o = @default_org
     o.reject
     expect(o.status).to eq("rejected")
   end
 
   it "is initialized with submitted status" do
-    o = Organization.new
+    o = @default_org
     expect(o.status).to eq("submitted")
   end
 
   it "can set nil status to submitted" do
-    o = Organization.new
+    o = @default_org
     o.status = nil
     o.set_default_status
     expect(o.status).to eq("submitted")
   end
 
   it "wont set reset status" do
-    o = Organization.new
+    o = @default_org
     o.approve
     o.set_default_status
     expect(o.status).to eq("approved")
   end
   
   it "returns its own name" do
-    o = Organization.new(name:"Blue Cross")
+    o = @named_org
     expect(o.to_s).to eq("Blue Cross")
   end
 
