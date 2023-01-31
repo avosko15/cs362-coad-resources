@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  let(:user) {build(:user, :email => "bario54321@gmail.com")}
+  let(:user) {build(:user)}
 
   # instantiation - 2.2
 
@@ -44,9 +44,8 @@ RSpec.describe User, type: :model do
   end
 
   it "can have a nil role" do
-    u = User.new
-    u.role = nil
-    expect(u.role).to eq(nil)
+    user.role = nil
+    expect(user.role).to eq(nil)
   end
 
   it "can set nil role to organization" do
