@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Region, type: :model do
 
+  let(:region) {build(:region)}
+
   # instantiation - 2.2
 
   # it "exists" do
@@ -40,8 +42,8 @@ RSpec.describe Region, type: :model do
   # member functions - 3.2
 
   it "returns its own name" do
-    r = Region.new(name: "Sisters")
-    expect(r.to_s).to eq("Sisters")
+    region.name = "Sisters"
+    expect(region.to_s).to eq("Sisters")
   end
 
 
