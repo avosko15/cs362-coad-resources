@@ -55,9 +55,8 @@ RSpec.describe User, type: :model do
   end
 
   it "won't change default role" do
-    u = User.new
-    u.set_default_role
-    expect(u.role).to eq("organization")
+    user.set_default_role
+    expect(user.role).to eq("organization")
   end
 
 end
