@@ -77,18 +77,18 @@ RSpec.describe Ticket, type: :model do
     ResourceCategory.create!(id: 10, name: "Test")
     open_ticket = Ticket.create!(name: "Test1", closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
     closed_ticket = Ticket.create!(name: "Test2", closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-  
+
     expect(Ticket.open).to eq([open_ticket])
   end
-  
+
   it "should return only closed tickets" do
     Region.create!(id: 10, name: "Test")
     ResourceCategory.create!(id: 10, name: "Test")
     closed_ticket = Ticket.create!(name: "Test2", closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-  
+
     expect(Ticket.closed).to eq([closed_ticket])
   end
-  
+
   it "should return only open tickets with organization ids" do
     Region.create!(id: 10, name: "Test")
     ResourceCategory.create!(id: 10, name: "Test")
@@ -97,7 +97,7 @@ RSpec.describe Ticket, type: :model do
     ticket_without_organization = Ticket.create!(name: "Test3", closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
     expect(Ticket.all_organization).to eq([ticket_with_organization1])
   end
-  
+
   it "should return only open tickets with a specific organization id" do
     Region.create!(id: 10, name: "Test")
     ResourceCategory.create!(id: 10, name: "Test")
@@ -106,17 +106,17 @@ RSpec.describe Ticket, type: :model do
     ticket_organization3 = Ticket.create!(name: "Test3", organization_id: 9, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
     expect(Ticket.organization(10)).to eq([ticket_organization1])
   end
-  
+
   it "should return only closed tickets with a specific organization_id" do
     Region.create!(id: 10, name: "Test")
     ResourceCategory.create!(id: 10, name: "Test")
     ticket_closed_organization1 = Ticket.create!(name: "Test1", organization_id: 10, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
     ticket_closed_organization2 = Ticket.create!(name: "Test2", organization_id: 10, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
     ticket_closed_organization3 = Ticket.create!(name: "Test3", organization_id: 9, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-  
+
     expect(Ticket.closed_organization(10)).to eq([ticket_closed_organization1])
   end
-  
+
   it "should return only tickets with a specific region id" do
     Region.create!(id: 10, name: "Test1")
     Region.create!(id: 9, name: "Test2")
@@ -127,7 +127,7 @@ RSpec.describe Ticket, type: :model do
 
     expect(Ticket.region(10)).to eq([ticket_region1, ticket_region2])
   end
-  
+
   it "should return only tickets with a specific resource category id" do
     Region.create!(id: 10, name: "Test1")
     ResourceCategory.create!(id: 10, name: "Test1")
@@ -135,8 +135,8 @@ RSpec.describe Ticket, type: :model do
     ticket_resource_category1 = Ticket.create!(name: "Test1", organization_id: 10, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
     ticket_resource_category2 = Ticket.create!(name: "Test2", organization_id: 10, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
     ticket_resource_category3 = Ticket.create!(name: "Test3", organization_id: 10, closed: false, region_id: 10, resource_category_id: 9, phone: "+1-555-555-5555")
-  
+
     expect(Ticket.resource_category(10)).to eq([ticket_resource_category1, ticket_resource_category2])
   end
-  
+
 end
