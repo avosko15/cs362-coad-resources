@@ -73,11 +73,47 @@ RSpec.describe Ticket, type: :model do
   #imma try the scope test - 3.4
 
   it "should return only open tickets" do
-    open_ticket = Ticket.create!(name: "Test1", closed: false)
-    closed_ticket = Ticket.create!(name: "Test2",closed: true)
+    Region.create!(id: 10, name: "Test")
+    ResourceCategory.create!(id: 10, name: "Test")
+    open_ticket = Ticket.create!(name: "Test1", closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
+    closed_ticket = Ticket.create!(name: "Test2", closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
   
     expect(Ticket.open).to eq([open_ticket])
   end
   
+  it "should return only closed resources" do
+    closed_resource = Resource.create(closed: true)
   
+    expect(Resource.closed).to eq([closed_resource])
+  end
+  
+  it "should return only resources where organization_id is not nil" do
+    all_organization_resource = Resource.create(closed: false, organization_id: 1)
+  
+    expect(Resource.all_organization).to eq([all_organization_resource])
+  end
+  
+  it "should return only resources where organization_id is the specified value and closed is false" do
+    organization_resource = Resource.create(organization_id: 1, closed: false)
+  
+    expect(Resource.organization(1)).to eq([organization_resource])
+  end
+  
+  it "should return only resources where organization_id is the specified value and closed is true" do
+    closed_organization_resource = Resource.create(organization_id: 1, closed: true)
+  
+    expect(Resource.closed_organization(1)).to eq([closed_organization_resource])
+  end
+  
+  it "should return only resources where region_id is the specified value" do
+    region_resource = Resource.create(region_id: 1)
+  
+    expect(Resource.region(1)).to eq([region_resource])
+  end
+  
+  it "should return only resources where resource_category_id is the specified value" do
+    resource_category_resource = Resource.create(resource_category_id: 1)
+  
+    expect(Resource.resource_category(1)).to eq([resource_category_resource])
+  end
   
