@@ -3,6 +3,8 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
+  let(:ticket) {build(:ticket)}
+
   # instantiation - 2.2
 
   # it "exists" do
@@ -43,29 +45,29 @@ RSpec.describe Ticket, type: :model do
   # member functions - 3.2
   
   it "is open upon creation" do
-    t = Ticket.new
+    t = ticket
     expect(t.open?).to eq(true)
   end
 
   it "recognizes when ticket is closed" do
-    t = Ticket.new
+    t = ticket
     t.closed = true
     expect(t.open?).to eq(false)
   end
 
   it "can recognize claimed tickets" do
     o = Organization.create(id: 3, name: "Blue Cross", email: "example@domain.com", phone: "555-555-5555", secondary_phone: "444-444-4444", primary_name: "Blue Cross", secondary_name: "BC")
-    t = Ticket.new(organization_id: 3)
+    t = ticket(organization_id: 3)
     expect(t.captured?).to eq(true)
   end
 
   it "is unclaimed upon creation" do
-    t = Ticket.new
+    t = ticket
     expect(t.captured?).to eq(false)
   end
 
   it "can return its own id" do
-    t = Ticket.new(id: 50)
+    t = ticket(id: 50)
     expect(t.to_s).to eq("Ticket 50")
   end
 
