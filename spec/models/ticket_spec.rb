@@ -8,9 +8,7 @@ RSpec.describe Ticket, type: :model do
     @default_ticket_id = build(:ticket, :id => 50)
     @example_org = create(:organization, :id => 3, :name => "Blue Cross", :email => "example@domain.com", :phone => "555-555-5555", :secondary_phone => "444-444-4444", :primary_name => "Blue Cross", :secondary_name => "BC")
     @default_ticket_w_org_id = build(:ticket, :organization_id => 3)
-    end
-
-  let(:ticket) {build(:ticket)}
+  end
 
   # instantiation - 2.2
 
