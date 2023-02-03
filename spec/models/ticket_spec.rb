@@ -3,6 +3,13 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
+  setup do
+    @default_ticket = build(:ticket)
+    @default_ticket_id = build(:ticket, :id => 50)
+    @example_org = create(:organization, :id => 3, :name => "Blue Cross", :email => "example@domain.com", :phone => "555-555-5555", :secondary_phone => "444-444-4444", :primary_name => "Blue Cross", :secondary_name => "BC")
+    @default_ticket_w_org_id = build(:ticket, :organization_id => 3)
+    end
+
   let(:ticket) {build(:ticket)}
 
   # instantiation - 2.2
@@ -45,29 +52,29 @@ RSpec.describe Ticket, type: :model do
   # member functions - 3.2
   
   it "is open upon creation" do
-    t = ticket
+    t = @default_ticket
     expect(t.open?).to eq(true)
   end
 
   it "recognizes when ticket is closed" do
-    t = ticket
+    t = @default_ticket
     t.closed = true
     expect(t.open?).to eq(false)
   end
 
   it "can recognize claimed tickets" do
-    o = Organization.create(id: 3, name: "Blue Cross", email: "example@domain.com", phone: "555-555-5555", secondary_phone: "444-444-4444", primary_name: "Blue Cross", secondary_name: "BC")
-    t = ticket(organization_id: 3)
+   # o = Organization.create(id: 3, name: "Blue Cross", email: "example@domain.com", phone: "555-555-5555", secondary_phone: "444-444-4444", primary_name: "Blue Cross", secondary_name: "BC")
+    t = @default_ticket_w_org_id
     expect(t.captured?).to eq(true)
   end
 
   it "is unclaimed upon creation" do
-    t = ticket
+    t = @default_ticket
     expect(t.captured?).to eq(false)
   end
 
   it "can return its own id" do
-    t = ticket(id: 50)
+    t =  @default_ticket_id
     expect(t.to_s).to eq("Ticket 50")
   end
 
