@@ -5,9 +5,18 @@ RSpec.describe Ticket, type: :model do
 
   setup do
     @default_ticket = build(:ticket)
-    @default_ticket_id = build(:ticket, :id => 50)
+    @ticket_w_id = build(:ticket, :id => 50)
     @example_org = create(:organization, :id => 3, :name => "Blue Cross", :email => "example@domain.com", :phone => "555-555-5555", :secondary_phone => "444-444-4444", :primary_name => "Blue Cross", :secondary_name => "BC")
-    @default_ticket_w_org_id = build(:ticket, :organization_id => 3)
+    @ticket_w_org_id = build(:ticket, :organization_id => 3)
+    @example_region = create(:region, :id => 10, :name => "Test")
+    @example_res_cat = create(:resource_category, :id => 10, :name => "Test")
+    @example_region2 = create(:region, :id => 9, :name => "Test2")
+    @example_res_cat2 = create(:resource_category, :id => 9, :name => "Test2")
+    @open_ticket = create(:ticket, :name => "Test1", :closed => false, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
+    @closed_ticket = create(:ticket, :name => "Test2", :closed => true, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
+    @open_ticket2 = create(:ticket, :name => "Test3", :closed => false, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
+
+
   end
 
   # instantiation - 2.2
@@ -43,8 +52,6 @@ RSpec.describe Ticket, type: :model do
   it { is_expected.to validate_length_of(:description).is_at_most(1020).on(:create) }
   it { is_expected.to allow_value('+1 503 344 4567').for(:phone) }
   it { is_expected.not_to allow_value('userexample.com').for(:phone) }
-  # it { is_expected.to validate_plausible_phone(:phone) } - added by E, we can take this out eventually but Beej is 
-  #     investigating so leave it for now
 
 
   # member functions - 3.2
@@ -61,8 +68,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   it "can recognize claimed tickets" do
-   # o = Organization.create(id: 3, name: "Blue Cross", email: "example@domain.com", phone: "555-555-5555", secondary_phone: "444-444-4444", primary_name: "Blue Cross", secondary_name: "BC")
-    t = @default_ticket_w_org_id
+    t = @ticket_w_org_id
     expect(t.captured?).to eq(true)
   end
 
@@ -72,7 +78,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   it "can return its own id" do
-    t =  @default_ticket_id
+    t =  @ticket_w_id
     expect(t.to_s).to eq("Ticket 50")
   end
 
@@ -80,70 +86,41 @@ RSpec.describe Ticket, type: :model do
   #imma try the scope test - 3.4
 
   it "should return only open tickets" do
-    Region.create!(id: 10, name: "Test")
-    ResourceCategory.create!(id: 10, name: "Test")
-    open_ticket = Ticket.create!(name: "Test1", closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    closed_ticket = Ticket.create!(name: "Test2", closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-  
-    expect(Ticket.open).to eq([open_ticket])
+    expect(Ticket.open).to eq([@open_ticket, @open_ticket2])
   end
   
   it "should return only closed tickets" do
-    Region.create!(id: 10, name: "Test")
-    ResourceCategory.create!(id: 10, name: "Test")
-    closed_ticket = Ticket.create!(name: "Test2", closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-  
-    expect(Ticket.closed).to eq([closed_ticket])
+    expect(Ticket.closed).to eq([@closed_ticket])
   end
   
   it "should return only open tickets with organization ids" do
-    Region.create!(id: 10, name: "Test")
-    ResourceCategory.create!(id: 10, name: "Test")
-    ticket_with_organization1 = Ticket.create!(name: "Test1", organization_id: 1, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_with_organization2 = Ticket.create!(name: "Test2", organization_id: 1, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_without_organization = Ticket.create!(name: "Test3", closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    expect(Ticket.all_organization).to eq([ticket_with_organization1])
+    @open_ticket.update_attributes(:organization_id => 10)
+    @closed_ticket.update_attributes(:organization_id => 10)
+    expect(Ticket.all_organization).to eq([@open_ticket])
   end
   
   it "should return only open tickets with a specific organization id" do
-    Region.create!(id: 10, name: "Test")
-    ResourceCategory.create!(id: 10, name: "Test")
-    ticket_organization1 = Ticket.create!(name: "Test1", organization_id: 10, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_organization2 = Ticket.create!(name: "Test2", organization_id: 10, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_organization3 = Ticket.create!(name: "Test3", organization_id: 9, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    expect(Ticket.organization(10)).to eq([ticket_organization1])
+    @open_ticket.update_attributes(:organization_id => 10)
+    @closed_ticket.update_attributes(:organization_id => 10)
+    @open_ticket2.update_attributes(:organization_id => 9)
+    expect(Ticket.organization(10)).to eq([@open_ticket])
   end
   
   it "should return only closed tickets with a specific organization_id" do
-    Region.create!(id: 10, name: "Test")
-    ResourceCategory.create!(id: 10, name: "Test")
-    ticket_closed_organization1 = Ticket.create!(name: "Test1", organization_id: 10, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_closed_organization2 = Ticket.create!(name: "Test2", organization_id: 10, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_closed_organization3 = Ticket.create!(name: "Test3", organization_id: 9, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-  
-    expect(Ticket.closed_organization(10)).to eq([ticket_closed_organization1])
+    @open_ticket.update_attributes(:organization_id => 10)
+    @closed_ticket.update_attributes(:organization_id => 10)
+    @open_ticket2.update_attributes(:organization_id => 9)
+    expect(Ticket.closed_organization(10)).to eq([@closed_ticket])
   end
   
   it "should return only tickets with a specific region id" do
-    Region.create!(id: 10, name: "Test1")
-    Region.create!(id: 9, name: "Test2")
-    ResourceCategory.create!(id: 10, name: "Test")
-    ticket_region1 = Ticket.create!(name: "Test1", organization_id: 10, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_region2 = Ticket.create!(name: "Test2", organization_id: 10, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_region3 = Ticket.create!(name: "Test3", organization_id: 10, closed: false, region_id: 9, resource_category_id: 10, phone: "+1-555-555-5555")
-
-    expect(Ticket.region(10)).to eq([ticket_region1, ticket_region2])
+    @open_ticket2.update_attributes(:region_id => 9)
+    expect(Ticket.region(10)).to eq([@open_ticket, @closed_ticket])
   end
   
   it "should return only tickets with a specific resource category id" do
-    Region.create!(id: 10, name: "Test1")
-    ResourceCategory.create!(id: 10, name: "Test1")
-    ResourceCategory.create!(id: 9, name: "Test2")
-    ticket_resource_category1 = Ticket.create!(name: "Test1", organization_id: 10, closed: false, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_resource_category2 = Ticket.create!(name: "Test2", organization_id: 10, closed: true, region_id: 10, resource_category_id: 10, phone: "+1-555-555-5555")
-    ticket_resource_category3 = Ticket.create!(name: "Test3", organization_id: 10, closed: false, region_id: 10, resource_category_id: 9, phone: "+1-555-555-5555")
-  
-    expect(Ticket.resource_category(10)).to eq([ticket_resource_category1, ticket_resource_category2])
+    @open_ticket2.update_attributes(:resource_category_id => 9)
+    expect(Ticket.resource_category(10)).to eq([@open_ticket, @closed_ticket])
   end
   
 end
