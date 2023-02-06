@@ -3,6 +3,9 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
+
+  # factory implementation - 4.0
+
   setup do
     @default_ticket = build(:ticket)
     @ticket_w_id = build(:ticket, :id => 50)
@@ -15,9 +18,8 @@ RSpec.describe Ticket, type: :model do
     @open_ticket = create(:ticket, :name => "Test1", :closed => false, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
     @closed_ticket = create(:ticket, :name => "Test2", :closed => true, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
     @open_ticket2 = create(:ticket, :name => "Test3", :closed => false, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
-
-
   end
+
 
   # instantiation - 2.2
 
@@ -54,7 +56,7 @@ RSpec.describe Ticket, type: :model do
   it { is_expected.not_to allow_value('userexample.com').for(:phone) }
 
 
-  # member functions - 3.2
+  # member functions - 3.2 & 4.0
   
   it "is open upon creation" do
     t = @default_ticket
@@ -83,7 +85,7 @@ RSpec.describe Ticket, type: :model do
   end
 
 
-  #imma try the scope test - 3.4
+  # scope tests - 3.4 & 4.0
 
   it "should return only open tickets" do
     expect(Ticket.open).to eq([@open_ticket, @open_ticket2])

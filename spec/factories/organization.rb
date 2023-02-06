@@ -1,3 +1,5 @@
+# factory implementation - 4.0
+
 FactoryBot.define do
     factory :organization do
         # name {'Fake name'}

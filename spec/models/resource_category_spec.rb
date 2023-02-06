@@ -2,12 +2,18 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
+
+  # factory implementation - 4.0
+
   setup do
     @default_resource_cat = build(:resource_category)
     @default_resource_cat_name = build(:resource_category, :name => "Snow")
-    @default_resource_cat_name_unspec =build(:resource_category, :name => "Unspecified")
+    @default_resource_cat_name_unspec = build(:resource_category, :name => "Unspecified")
+    @res_cat1 = create(:resource_category, :name => "Test1", :active => true)
+    @res_cat2 = create(:resource_category, :name => "Test2", :active => true)
   end
-  let(:resource_category) {build(:resource_category)}
+  
+
   # instantiation - 2.2
 
   # it "exists" do
@@ -34,7 +40,7 @@ RSpec.describe ResourceCategory, type: :model do
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
 
 
-  # member functions - 3.2
+  # member functions - 3.2 & 4.0
 
   it "is initialized as active" do
     r = @default_resource_cat
@@ -67,24 +73,20 @@ RSpec.describe ResourceCategory, type: :model do
   # class functions - 3.3
 
   it "can find or create ResourceCategory record with name 'Unspecified'" do
-    rc = @default_resource_cat_name_unspec
+    rc = ResourceCategory.unspecified
     expect(rc.name).to eq("Unspecified")
   end
 
 
-  # 3.4 Anna trying to do scope test
+  # scope tests - 3.4 & 4.0
   
   it "can query for active categories" do
-    active1 = ResourceCategory.create!(name: "Test1", active: true)
-    active2 = ResourceCategory.create!(name: "Test2", active: true)
-   
-    expect(ResourceCategory.active).to contain_exactly(active1, active2)
+    expect(ResourceCategory.active).to contain_exactly(@res_cat1, @res_cat2)
   end
 
   it "can query for inactive categories" do
-    inactive1 = ResourceCategory.create!(name: "Test1", active: false)
-    inactive2 = ResourceCategory.create!(name: "Test2", active: false)
-
-    expect(ResourceCategory.inactive).to contain_exactly(inactive1, inactive2)
+    @res_cat1.update_attributes(:active => false)
+    @res_cat2.update_attributes(:active => false)
+    expect(ResourceCategory.inactive).to contain_exactly(@res_cat1, @res_cat2)
   end
 end

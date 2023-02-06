@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Region, type: :model do
 
+  
+  # factory implementation - 4.0
+
   let(:region) {build(:region)}
+
 
   # instantiation - 2.2
 
@@ -39,7 +43,7 @@ RSpec.describe Region, type: :model do
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
 
 
-  # member functions - 3.2
+  # member functions - 3.2 & 4.0
 
   it "returns its own name" do
     region.name = "Sisters"
