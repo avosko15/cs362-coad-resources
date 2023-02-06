@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
+  setup do
+    @default_resource_cat = build(:resource_category)
+    @default_resource_cat_name = build(:resource_category, :name => "Snow")
+    @default_resource_cat_name_unspec =build(:resource_category, :name => "Unspecified")
+  end
+  let(:resource_category) {build(:resource_category)}
   # instantiation - 2.2
 
   # it "exists" do
@@ -31,29 +37,29 @@ RSpec.describe ResourceCategory, type: :model do
   # member functions - 3.2
 
   it "is initialized as active" do
-    r = ResourceCategory.new
+    r = @default_resource_cat
     expect(r.active).to eq(true)
   end
 
   it "can be deactivated" do
-    r = ResourceCategory.new
+    r = @default_resource_cat
     r.deactivate
     expect(r.active).to eq(false)
   end
 
   it "recognizes its own activity" do
-    r = ResourceCategory.new
+    r = @default_resource_cat
     expect(r.inactive?).to eq(false)
   end
 
   it "recognizes its own inactivity" do
-    r = ResourceCategory.new
+    r = @default_resource_cat
     r.deactivate
     expect(r.inactive?).to eq(true)
   end
 
   it "can display its own name" do 
-    r = ResourceCategory.new(name: "Snow")
+    r = @default_resource_cat_name
     expect(r.to_s).to eq("Snow")
   end
 
@@ -61,7 +67,7 @@ RSpec.describe ResourceCategory, type: :model do
   # class functions - 3.3
 
   it "can find or create ResourceCategory record with name 'Unspecified'" do
-    rc = ResourceCategory.unspecified
+    rc = @default_resource_cat_name_unspec
     expect(rc.name).to eq("Unspecified")
   end
 
