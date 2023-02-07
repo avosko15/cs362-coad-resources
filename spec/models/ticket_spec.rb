@@ -8,12 +8,10 @@ RSpec.describe Ticket, type: :model do
 
   setup do
     @default_ticket = build(:ticket)
-    @ticket_w_id = build(:ticket, :id => 50)
     @example_org = create(:organization, :id => 3, :name => "Blue Cross", :email => "example@domain.com", :phone => "555-555-5555", :secondary_phone => "444-444-4444", :primary_name => "Blue Cross", :secondary_name => "BC")
-    @ticket_w_org_id = build(:ticket, :organization_id => 3)
     @example_region = create(:region, :id => 10, :name => "Test")
-    @example_res_cat = create(:resource_category, :id => 10, :name => "Test")
     @example_region2 = create(:region, :id => 9, :name => "Test2")
+    @example_res_cat = create(:resource_category, :id => 10, :name => "Test")
     @example_res_cat2 = create(:resource_category, :id => 9, :name => "Test2")
     @open_ticket = create(:ticket, :name => "Test1", :closed => false, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
     @closed_ticket = create(:ticket, :name => "Test2", :closed => true, :region_id => 10, :resource_category_id => 10, :phone => "+1-555-555-5555")
@@ -70,7 +68,8 @@ RSpec.describe Ticket, type: :model do
   end
 
   it "can recognize claimed tickets" do
-    t = @ticket_w_org_id
+    @default_ticket.update_attributes(:organization_id => 3) 
+    t = @default_ticket
     expect(t.captured?).to eq(true)
   end
 
@@ -80,7 +79,8 @@ RSpec.describe Ticket, type: :model do
   end
 
   it "can return its own id" do
-    t =  @ticket_w_id
+    @default_ticket.update_attributes(:id => 50)
+    t =  @default_ticket
     expect(t.to_s).to eq("Ticket 50")
   end
 
