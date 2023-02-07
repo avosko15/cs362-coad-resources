@@ -2,5 +2,6 @@
 
 FactoryBot.define do
     factory :region do
+        name { "Sisters" }
     end
 end

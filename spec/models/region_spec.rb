@@ -46,7 +46,6 @@ RSpec.describe Region, type: :model do
   # member functions - 3.2 & 4.0
 
   it "returns its own name" do
-    region.name = "Sisters"
     expect(region.to_s).to eq("Sisters")
   end
 
