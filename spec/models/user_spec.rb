@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
+
+  # factory implementation - 4.0
+
   let(:user) {build(:user)}
+
 
   # instantiation - 2.2
 
@@ -33,7 +37,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_length_of(:password).is_at_least(7).is_at_most(255).on(:create) }
 
 
-  # member functions - 3.2 | factory update - 4.0
+  # member functions - 3.2 & 4.0
   
   it "returns its own email" do
     expect(user.to_s).to eq("bario54321@gmail.com")
