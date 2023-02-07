@@ -6,9 +6,8 @@ RSpec.describe ResourceCategory, type: :model do
   # factory implementation - 4.0
 
   setup do
-    @default_resource_cat = build(:resource_category)
-    @default_resource_cat_name = build(:resource_category, :name => "Snow")
-    @default_resource_cat_name_unspec = build(:resource_category, :name => "Unspecified")
+    @default_resource = build(:resource_category)
+    @default_resource_unspec = build(:resource_category, :name => "Unspecified")
     @res_cat1 = create(:resource_category, :name => "Test1", :active => true)
     @res_cat2 = create(:resource_category, :name => "Test2", :active => true)
   end
@@ -43,30 +42,25 @@ RSpec.describe ResourceCategory, type: :model do
   # member functions - 3.2 & 4.0
 
   it "is initialized as active" do
-    r = @default_resource_cat
-    expect(r.active).to eq(true)
+    expect(@default_resource.active).to eq(true)
   end
 
   it "can be deactivated" do
-    r = @default_resource_cat
-    r.deactivate
-    expect(r.active).to eq(false)
+    @default_resource.deactivate
+    expect(@default_resource.active).to eq(false)
   end
 
   it "recognizes its own activity" do
-    r = @default_resource_cat
-    expect(r.inactive?).to eq(false)
+    expect(@default_resource.inactive?).to eq(false)
   end
 
   it "recognizes its own inactivity" do
-    r = @default_resource_cat
-    r.deactivate
-    expect(r.inactive?).to eq(true)
+    @default_resource.deactivate
+    expect(@default_resource.inactive?).to eq(true)
   end
 
   it "can display its own name" do 
-    r = @default_resource_cat_name
-    expect(r.to_s).to eq("Snow")
+    expect(@default_resource.to_s).to eq("Snow")
   end
 
 
