@@ -8,8 +8,8 @@ RSpec.describe ResourceCategory, type: :model do
   setup do
     @default_resource = build(:resource_category)
     @default_resource_unspec = build(:resource_category, :name => "Unspecified")
-    @res_cat1 = create(:resource_category, :name => "Test1", :active => true)
-    @res_cat2 = create(:resource_category, :name => "Test2", :active => true)
+    @res_cat1 = create(:resource_category, :name => "Test1")
+    @res_cat2 = create(:resource_category, :name => "Test2")
   end
   
 
