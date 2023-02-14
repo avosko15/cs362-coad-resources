@@ -8,6 +8,6 @@ RSpec.describe DashboardController, type: :controller do
     end
 
     describe "GET #index while logged out" do
-        it { expect(get(:idex)).to redirect_to(new_user_session_path) }
+        it { expect(get(:index)).to redirect_to(new_user_session_path) }
     end
 end
