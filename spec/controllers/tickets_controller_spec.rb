@@ -17,5 +17,5 @@ RSpec.describe TicketsController, type: :controller do
         it { expect(get(:show, params: { id: ticket.id })).to be_successful }
     end
 
-    # not sure if there's more here
+    # more
 end

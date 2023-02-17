@@ -14,5 +14,19 @@ FactoryBot.define do
         # secondary_phone {'541-888-8888'}
         # title {'Fake title'}
         # transportation {:maybe}
+
+        trait :req_fields_organization do
+            email
+            name
+            phone
+            status
+            
+        end
     end
 end
+
+
+# trait :organization_approved_user do
+#     role { :organization }
+#     organization_id { create(:organization, :approved).id }
+# end
