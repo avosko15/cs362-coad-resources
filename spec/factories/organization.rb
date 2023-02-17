@@ -2,31 +2,16 @@
 
 FactoryBot.define do
     factory :organization do
-        # name {'Fake name'}
-        # status {:submitted}
-        # phone {'541-999-9999'}
-        # email {'fakeemail@gmail.com'}
-        # description {'Fake description'}
-        # rejection_reason {'Fake rejection reason'}
-        # liability_insurance {'Fake liability insurance'}
-        # primary_name {'Fake primary name'}
-        # secondary_name {'Fake secondary name'}
-        # secondary_phone {'541-888-8888'}
-        # title {'Fake title'}
-        # transportation {:maybe}
 
         trait :req_fields_organization do
-            email
-            name
-            phone
-            status
-            
+            email { 'fake_organization_email@gmail.com' }
+            name { 'Fake Organization Name' }
+            phone { '555-555-5555' }
+            # status { :submitted } - I think this is default?
+            primary_name { 'Organization Primary Name' }
+            secondary_name { 'Organization Secondary Name' }
+            secondary_phone { '444-444-4444' }
         end
+
     end
 end
-
-
-# trait :organization_approved_user do
-#     role { :organization }
-#     organization_id { create(:organization, :approved).id }
-# end
