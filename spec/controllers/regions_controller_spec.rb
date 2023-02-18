@@ -6,6 +6,8 @@ RSpec.describe RegionsController, type: :controller do
         let(:user) { create(:user) }
         before(:each) { sign_in(user) }
 
+        let (:region) { create(:region)}
+
         describe "GET #index" do
             it { expect(get(:index)).to redirect_to(dashboard_path) }
         end
@@ -31,10 +33,18 @@ RSpec.describe RegionsController, type: :controller do
             let(:region) { create(:region)}
             it {expect(get(:edit, params: {id: region.id} )).to redirect_to(dashboard_path)}
         end
+
+        describe "PUT #update" do
+            it {
+                put(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+        end
     end
 
     context 'as a logged-out user' do
         let(:user) { create(:user) }
+        let (:region) { create(:region)}
         # before(:each) { sign_in(user) }
 
         describe "GET #index" do
@@ -61,15 +71,24 @@ RSpec.describe RegionsController, type: :controller do
             let(:region) { create(:region)}
             it {expect(get(:edit, params: {id: region.id} )).to redirect_to(new_user_session_path)}
         end
+
+        describe "PUT #update" do
+            it {
+                put(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to redirect_to(new_user_session_path)
+            }
+        end
     end
 
     context 'as an admin' do
         let(:user) { create(:user, :admin) }
         before(:each) { sign_in(user) }
 
+        let (:region) { create(:region)}
+
         describe "GET #index" do
             it { expect(get(:index)).to be_successful }
-        end  
+        end
 
         describe "GET #show" do
             let(:region) { create(:region) }
@@ -92,6 +111,14 @@ RSpec.describe RegionsController, type: :controller do
             let(:region) { create(:region)}
             it {expect(get(:edit, params: {id: region.id} )).to be_successful}
         end
+
+        describe "PUT #update" do
+            it {
+                put(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to redirect_to(@region)
+            }
+        end
+    
     end
 
 end

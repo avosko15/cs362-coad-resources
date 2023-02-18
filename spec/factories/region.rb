@@ -6,5 +6,10 @@ FactoryBot.define do
         sequence :name do |n|
             "Sisters#{n}"
         end
+        
+        trait :updatable_region do
+            name { :organization }
+            organization_id { create(:organization, :req_fields_organization, :approved).id }
+        end
     end
 end
