@@ -2,6 +2,9 @@
 
 FactoryBot.define do
     factory :region do
-        name { "Sisters" }
+        # name { "Sisters" }
+        sequence :name do |n|
+            "Sisters#{n}"
+        end
     end
 end
