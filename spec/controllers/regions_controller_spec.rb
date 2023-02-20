@@ -15,7 +15,6 @@ RSpec.describe RegionsController, type: :controller do
         describe "GET #show" do
             let(:region) { create(:region) }
             it { expect(get(:show, params: { id: region.id } )).to redirect_to(dashboard_path) }
-            # some people need dashboard_path to be instead new_session_path
         end 
 
         describe "GET #new" do
@@ -52,7 +51,6 @@ RSpec.describe RegionsController, type: :controller do
     context 'as a logged-out user' do
         let(:user) { create(:user) }
         let (:region) { create(:region)}
-        # before(:each) { sign_in(user) }
 
         describe "GET #index" do
             it { expect(get(:index)).to redirect_to(new_user_session_path) }
@@ -114,7 +112,6 @@ RSpec.describe RegionsController, type: :controller do
         end
 
         describe "POST #create" do
-            # let(:region) { create(:region) }
             it { 
                 post(:create, params: { region: attributes_for(:region) })
                 expect(response).to redirect_to(regions_path)
