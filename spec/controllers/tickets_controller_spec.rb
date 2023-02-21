@@ -4,15 +4,11 @@ RSpec.describe TicketsController, type: :controller do
     let(:ticket) { create(:ticket, :req_fields_ticket) }
     
     context 'as a logged-out user' do
-        # let(:ticket) { create(:ticket, :req_fields_ticket) }
 
         describe 'GET #new' do
             it { expect(get(:new)).to be_successful }
         end
 
-        # same for all, but getting error
-        # pp attributes_for(:ticket, :req_fields_ticket)
-        # post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
         describe 'POST #create' do
             it {
                 post(:create, params: { ticket: ticket.as_json })
@@ -24,7 +20,6 @@ RSpec.describe TicketsController, type: :controller do
             it { expect(get(:show, params: { id: ticket.id })).to redirect_to(dashboard_path) }
         end
 
-        # same for all except approved organization, but getting error
         describe 'POST #capture' do
             it {
                 post(:capture, params: { id: ticket.id })
@@ -32,7 +27,13 @@ RSpec.describe TicketsController, type: :controller do
             }   
         end
 
-        # release
+        describe 'POST #release' do
+            it {
+                post(:capture, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end
+
         # close
         # destroy
 
@@ -57,14 +58,21 @@ RSpec.describe TicketsController, type: :controller do
             it { expect(get(:show, params: { id: ticket.id })).to be_successful }
         end
 
-        # describe 'POST #capture' do
-        #     it {
-        #         post(:capture, params: { ticket: attributes_for(:ticket) })
-        #         expect(response).to be_successful
-        #     }
-        # end
+        describe 'POST #capture' do
+            it {
+                post(:capture, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path << '#tickets:open')
+            }   
+        end
 
-        # release
+        describe 'POST #release' do
+            it {
+                post(:release, params: { id: ticket.id })
+                expect(response).to be_successful
+                # expect(response).to redirect_to(dashboard_path << '#tickets:organization')
+            }   
+        end
+
         # close
         # destroy
 
@@ -96,7 +104,13 @@ RSpec.describe TicketsController, type: :controller do
             }   
         end
 
-        # release
+        describe 'POST #release' do
+            it {
+                post(:capture, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end
+
         # close
         # destroy
 
@@ -127,8 +141,14 @@ RSpec.describe TicketsController, type: :controller do
                 expect(response).to redirect_to(dashboard_path)
             }   
         end
+
+        describe 'POST #release' do
+            it {
+                post(:capture, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end        
         
-        # release
         # close
         # destroy
 
