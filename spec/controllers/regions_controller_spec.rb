@@ -2,18 +2,22 @@ require 'rails_helper'
 
 RSpec.describe RegionsController, type: :controller do
    
+    let (:region) { create(:region)}
+    let(:user) { create(:user) }
+
+
     context 'as a logged-in user' do
-        let(:user) { create(:user) }
+        # let(:user) { create(:user) }
         before(:each) { sign_in(user) }
 
-        let (:region) { create(:region)}
+        # let (:region) { create(:region)}
 
         describe "GET #index" do
             it { expect(get(:index)).to redirect_to(dashboard_path) }
         end
 
         describe "GET #show" do
-            let(:region) { create(:region) }
+            # let(:region) { create(:region) }
             it { expect(get(:show, params: { id: region.id } )).to redirect_to(dashboard_path) }
         end 
 
@@ -29,7 +33,7 @@ RSpec.describe RegionsController, type: :controller do
         end
 
         describe "GET #edit" do
-            let(:region) { create(:region)}
+            # let(:region) { create(:region)}
             it {expect(get(:edit, params: {id: region.id} )).to redirect_to(dashboard_path)}
         end
 
@@ -49,15 +53,15 @@ RSpec.describe RegionsController, type: :controller do
     end
 
     context 'as a logged-out user' do
-        let(:user) { create(:user) }
-        let (:region) { create(:region)}
+        # let(:user) { create(:user) }
+        # let (:region) { create(:region)}
 
         describe "GET #index" do
             it { expect(get(:index)).to redirect_to(new_user_session_path) }
         end  
 
         describe "GET #show" do
-            let(:region) { create(:region) }
+            # let(:region) { create(:region) }
             it { expect(get(:show, params: { id: region.id } )).to redirect_to(new_user_session_path) }
         end
 
@@ -73,7 +77,7 @@ RSpec.describe RegionsController, type: :controller do
         end
 
         describe "GET #edit" do
-            let(:region) { create(:region)}
+            # let(:region) { create(:region)}
             it {expect(get(:edit, params: {id: region.id} )).to redirect_to(new_user_session_path)}
         end
 
@@ -96,14 +100,14 @@ RSpec.describe RegionsController, type: :controller do
         let(:user) { create(:user, :admin) }
         before(:each) { sign_in(user) }
 
-        let (:region) { create(:region)}
+        # let (:region) { create(:region)}
 
         describe "GET #index" do
             it { expect(get(:index)).to be_successful }
         end
 
         describe "GET #show" do
-            let(:region) { create(:region) }
+            # let(:region) { create(:region) }
             it { expect(get(:show, params: { id: region.id })).to be_successful }
         end
 
@@ -119,7 +123,7 @@ RSpec.describe RegionsController, type: :controller do
         end
         
         describe "GET #edit" do
-            let(:region) { create(:region)}
+            # let(:region) { create(:region)}
             it {expect(get(:edit, params: {id: region.id} )).to be_successful}
         end
 
