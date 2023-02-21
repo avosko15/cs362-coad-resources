@@ -34,8 +34,18 @@ RSpec.describe TicketsController, type: :controller do
             }   
         end
 
-        # close
-        # destroy
+        describe 'POST #close' do
+            it {
+                post(:close, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end
+
+        describe 'POST #destroy' do
+            it {
+                expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path)
+            }   
+        end
 
     end
 
@@ -73,8 +83,19 @@ RSpec.describe TicketsController, type: :controller do
             }   
         end
 
-        # close
-        # destroy
+        describe 'POST #close' do
+            it {
+                post(:close, params: { id: ticket.id })
+                expect(response).to be_successful
+                # expect(response).to redirect_to(dashboard_path << '#tickets:organization')
+            }   
+        end
+        
+        describe 'POST #destroy' do
+            it {
+                expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path)
+            }   
+        end
 
     end
 
@@ -111,8 +132,18 @@ RSpec.describe TicketsController, type: :controller do
             }   
         end
 
-        # close
-        # destroy
+        describe 'POST #close' do
+            it {
+                post(:close, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end
+        
+        describe 'POST #destroy' do
+            it {
+                expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path)
+            }   
+        end
 
     end
 
@@ -149,8 +180,18 @@ RSpec.describe TicketsController, type: :controller do
             }   
         end        
         
-        # close
-        # destroy
+        describe 'POST #close' do
+            it {
+                post(:close, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path << '#tickets:open')
+            }   
+        end
+        
+        describe 'POST #destroy' do
+            it {
+                expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path << '#tickets')
+            }   
+        end
 
     end
 
