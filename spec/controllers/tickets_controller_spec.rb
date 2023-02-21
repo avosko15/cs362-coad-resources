@@ -4,30 +4,33 @@ RSpec.describe TicketsController, type: :controller do
     let(:ticket) { create(:ticket, :req_fields_ticket) }
     
     context 'as a logged-out user' do
+        # let(:ticket) { create(:ticket, :req_fields_ticket) }
 
         describe 'GET #new' do
             it { expect(get(:new)).to be_successful }
         end
 
         # same for all, but getting error
-        # describe 'POST #create' do
-        #     it {
-        #         post(:create, params: { ticket: attributes_for(:ticket) })
-        #         expect(response).to redirect_to(ticket_submitted_path) 
-        #     }
-        # end
+        # pp attributes_for(:ticket, :req_fields_ticket)
+        # post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
+        describe 'POST #create' do
+            it {
+                post(:create, params: { ticket: ticket.as_json })
+                expect(response).to redirect_to(ticket_submitted_path) 
+            }
+        end
 
         describe 'GET #show' do
             it { expect(get(:show, params: { id: ticket.id })).to redirect_to(dashboard_path) }
         end
 
         # same for all except approved organization, but getting error
-        # describe 'POST #capture' do
-        #     it {
-        #         post(:capture, params: { ticket: attributes_for(:ticket) })
-        #         expect(response).to redirect_to(dashboard_path)
-        #     }
-        # end
+        describe 'POST #capture' do
+            it {
+                post(:capture, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end
 
         # release
         # close
@@ -43,7 +46,12 @@ RSpec.describe TicketsController, type: :controller do
             it { expect(get(:new)).to be_successful }
         end
 
-        # same POST #create test as 'as a logged-out user'
+        describe 'POST #create' do
+            it {
+                post(:create, params: { ticket: ticket.as_json })
+                expect(response).to redirect_to(ticket_submitted_path) 
+            }
+        end
 
         describe 'GET #show' do
             it { expect(get(:show, params: { id: ticket.id })).to be_successful }
@@ -70,13 +78,23 @@ RSpec.describe TicketsController, type: :controller do
             it { expect(get(:new)).to be_successful }
         end
 
-        # same POST #create test as 'as a logged-out user'
+        describe 'POST #create' do
+            it {
+                post(:create, params: { ticket: ticket.as_json })
+                expect(response).to redirect_to(ticket_submitted_path) 
+            }
+        end
 
         describe 'GET #show' do
             it { expect(get(:show, params: { id: ticket.id })).to redirect_to(dashboard_path) }
         end
 
-        # same POST #capture test as 'as a logged-out user'
+        describe 'POST #capture' do
+            it {
+                post(:capture, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end
 
         # release
         # close
@@ -92,14 +110,24 @@ RSpec.describe TicketsController, type: :controller do
             it { expect(get(:new)).to be_successful }
         end
 
-        # same POST #create test as 'as a logged-out user'
-        
+        describe 'POST #create' do
+            it {
+                post(:create, params: { ticket: ticket.as_json })
+                expect(response).to redirect_to(ticket_submitted_path) 
+            }
+        end        
+
         describe 'GET #show' do
             it { expect(get(:show, params: { id: ticket.id })).to be_successful }
         end
 
-        # same POST #capture test as 'as a logged-out user'
-
+        describe 'POST #capture' do
+            it {
+                post(:capture, params: { id: ticket.id })
+                expect(response).to redirect_to(dashboard_path)
+            }   
+        end
+        
         # release
         # close
         # destroy

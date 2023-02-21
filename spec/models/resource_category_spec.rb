@@ -60,7 +60,7 @@ RSpec.describe ResourceCategory, type: :model do
   end
 
   it "can display its own name" do 
-    expect(@default_resource.to_s).to eq("Snow")
+    expect(@default_resource.to_s).to eq(@default_resource.name)
   end
 
 

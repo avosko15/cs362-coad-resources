@@ -23,7 +23,7 @@ class TicketsController < ApplicationController
   end
 
   def show
-    return redirect_to dashboard_path unless current_user&.organization&.approved? || current_user&.admin? # added ampersand to current_user.admin?
+    return redirect_to dashboard_path unless current_user&.organization&.approved? || current_user&.admin? # E added ampersand to current_user.admin?
     @ticket = Ticket.find(params[:id])
   end
 
