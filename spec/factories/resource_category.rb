@@ -2,6 +2,9 @@
 
 FactoryBot.define do
     factory :resource_category do
-        name { "Snow" }
+        # name { "Snow" }
+        sequence :name do |n|
+            "Snow#{n}"
+        end
     end
 end
