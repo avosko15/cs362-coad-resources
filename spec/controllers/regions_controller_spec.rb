@@ -5,7 +5,6 @@ RSpec.describe RegionsController, type: :controller do
     let(:region) { create(:region)}
     let(:user) { create(:user) }
 
-
     context 'as a logged-in user' do
         before(:each) { sign_in(user) }
 
