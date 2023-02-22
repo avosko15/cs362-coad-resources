@@ -12,4 +12,19 @@ RSpec.describe ResourceCategoriesController, type: :controller do
         end
     end
 
+    context 'as a logged out user' do
+        describe "GET #index" do
+            it { expect(get(:index)).to redirect_to(new_user_session_path) }
+        end
+    end
+
+    context 'as an admin' do
+        let(:user) { create(:user, :admin) }
+        before(:each) { sign_in(user) }
+        
+        describe "GET #index" do
+            it { expect(get(:index)).to be_successful }
+        end
+    end
+
 end
