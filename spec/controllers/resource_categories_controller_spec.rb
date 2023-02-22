@@ -25,6 +25,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 expect(response).to redirect_to(dashboard_path)
             }
         end
+
+        describe "GET #edit" do
+            it {expect(get(:edit, params: {id: resource_category.id} )).to redirect_to(dashboard_path)}
+        end
     end
 
     context 'as a logged out user' do
@@ -45,6 +49,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 post(:create, params: { resource_category: attributes_for(:resource_category) })
                 expect(response).to redirect_to(new_user_session_path)
             }
+        end
+
+        describe "GET #edit" do
+            it {expect(get(:edit, params: {id: resource_category.id} )).to redirect_to(new_user_session_path)}
         end
 
     end
@@ -70,6 +78,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 post(:create, params: { resource_category: attributes_for(:resource_category) })
                 expect(response).to redirect_to(resource_categories_path)
             }
+        end
+
+        describe "GET #edit" do
+            it {expect(get(:edit, params: {id: resource_category.id} )).to be_successful }
         end
     end
 
