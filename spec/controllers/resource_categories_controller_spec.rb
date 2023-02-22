@@ -14,6 +14,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
         describe "GET #show" do
             it { expect(get(:show, params: { id: resource_category.id })).to redirect_to(dashboard_path) }
         end
+        
+        describe "GET #new" do
+            it { expect(get(:new)).to redirect_to(dashboard_path) }
+        end
     end
 
     context 'as a logged out user' do
@@ -23,6 +27,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
 
         describe "GET #show" do
             it { expect(get(:show, params: { id: resource_category.id })).to redirect_to(new_user_session_path) }
+        end
+
+        describe "GET #new" do
+            it { expect(get(:new)).to redirect_to(new_user_session_path) }
         end
     end
 
@@ -36,6 +44,10 @@ RSpec.describe ResourceCategoriesController, type: :controller do
 
         describe "GET #show" do
             it { expect(get(:show, params: { id: resource_category.id })).to be_successful }
+        end
+
+        describe "GET #new" do
+            it { expect(get(:new)).to be_successful}
         end
         
     end
