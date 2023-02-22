@@ -38,6 +38,13 @@ RSpec.describe RegionsController, type: :controller do
             }
         end
 
+        describe "PATCH #update" do
+            it {
+                patch(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+        end
+
         describe "DELETE #destroy" do
             it {
                 delete(:destroy, params: { id: region.id, region: attributes_for(:region) })
@@ -74,6 +81,13 @@ RSpec.describe RegionsController, type: :controller do
         describe "PUT #update" do
             it {
                 put(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to redirect_to(new_user_session_path)
+            }
+        end
+
+        describe "PATCH #update" do
+            it {
+                patch(:update, params: { id: region.id, region: attributes_for(:region) })
                 expect(response).to redirect_to(new_user_session_path)
             }
         end
@@ -116,6 +130,13 @@ RSpec.describe RegionsController, type: :controller do
         describe "PUT #update" do
             it {
                 put(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to redirect_to(@region)
+            }
+        end
+    
+        describe "PATCH #update" do
+            it {
+                patch(:update, params: { id: region.id, region: attributes_for(:region) })
                 expect(response).to redirect_to(@region)
             }
         end
