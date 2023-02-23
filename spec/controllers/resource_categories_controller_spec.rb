@@ -147,6 +147,12 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 post(:create, params: { resource_category: attributes_for(:resource_category) })
                 expect(response).to redirect_to(resource_categories_path)
             }
+
+            it {
+                expect_any_instance_of(ResourceCategory).to receive(:save).and_return(false)
+                post(:create, params: { resource_category: attributes_for(:resource_category) })
+                expect(response).to be_successful
+            }
         end
 
         describe "GET #edit" do
@@ -158,12 +164,24 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 put(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
                 expect(response).to redirect_to(@resource_category)
             }
+
+            it {
+                expect_any_instance_of(ResourceCategory).to receive(:update).and_return(false)
+                put(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to be_successful
+            }
         end
     
         describe "PATCH #update" do
             it {
                 patch(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
                 expect(response).to redirect_to(@resource_category)
+            }
+
+            it {
+                expect_any_instance_of(ResourceCategory).to receive(:update).and_return(false)
+                patch(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to be_successful
             }
         end
 
