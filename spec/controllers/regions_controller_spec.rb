@@ -121,6 +121,13 @@ RSpec.describe RegionsController, type: :controller do
                 post(:create, params: { region: attributes_for(:region) })
                 expect(response).to redirect_to(regions_path)
             }
+
+            it {
+                expect_any_instance_of(Region).to receive(:save).and_return(false)
+
+                post(:create, params: { region: attributes_for(:region) })
+                expect(response).to be_successful
+            }
         end
         
         describe "GET #edit" do
@@ -132,12 +139,26 @@ RSpec.describe RegionsController, type: :controller do
                 put(:update, params: { id: region.id, region: attributes_for(:region) })
                 expect(response).to redirect_to(@region)
             }
+
+            it {
+                expect_any_instance_of(Region).to receive(:update).and_return(false)
+
+                put(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to be_successful
+            }
         end
     
         describe "PATCH #update" do
             it {
                 patch(:update, params: { id: region.id, region: attributes_for(:region) })
                 expect(response).to redirect_to(@region)
+            }
+
+            it {
+                expect_any_instance_of(Region).to receive(:update).and_return(false)
+
+                patch(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to be_successful
             }
         end
     
