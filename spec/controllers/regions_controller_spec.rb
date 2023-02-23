@@ -108,6 +108,12 @@ RSpec.describe RegionsController, type: :controller do
                 post(:create, params: { region: attributes_for(:region) })
                 expect(response).to redirect_to(regions_path)
             }
+
+            it { 
+                expect_any_instance_of(Region).to receive(:save).and_return(false)
+                post(:create, params: { region: attributes_for(:region) })
+                expect(response).to be_successful
+            }
         end
         
         describe "GET #edit" do
