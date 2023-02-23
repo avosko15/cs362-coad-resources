@@ -29,6 +29,20 @@ RSpec.describe ResourceCategoriesController, type: :controller do
         describe "GET #edit" do
             it {expect(get(:edit, params: {id: resource_category.id} )).to redirect_to(dashboard_path)}
         end
+
+        describe "PUT #update" do
+            it {
+                put(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+        end
+
+        describe "PATCH #update" do
+            it {
+                patch(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+        end
     end
 
     context 'as a logged out user' do
@@ -53,6 +67,20 @@ RSpec.describe ResourceCategoriesController, type: :controller do
 
         describe "GET #edit" do
             it {expect(get(:edit, params: {id: resource_category.id} )).to redirect_to(new_user_session_path)}
+        end
+
+        describe "PUT #update" do
+            it {
+                put(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(new_user_session_path)
+            }
+        end
+
+        describe "PATCH #update" do
+            it {
+                patch(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(new_user_session_path)
+            }
         end
 
     end
@@ -83,6 +111,21 @@ RSpec.describe ResourceCategoriesController, type: :controller do
         describe "GET #edit" do
             it {expect(get(:edit, params: {id: resource_category.id} )).to be_successful }
         end
+
+        describe "PUT #update" do
+            it {
+                put(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(@resource_category)
+            }
+        end
+    
+        describe "PATCH #update" do
+            it {
+                patch(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(@resource_category)
+            }
+        end
+
     end
 
 end
