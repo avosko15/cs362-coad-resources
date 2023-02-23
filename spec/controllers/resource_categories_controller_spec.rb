@@ -163,7 +163,15 @@ RSpec.describe ResourceCategoriesController, type: :controller do
         describe "PATCH #activate" do
             it {
                 patch(:activate, params: { id: resource_category.id })
-                expect(response).to redirect_to(activate_resource_category_path)
+                expect(response).to redirect_to(resource_category)
+                expect(flash[:notice]).to eq("Category activated.")
+            }
+
+            it {
+                expect_any_instance_of(ResourceCategory).to receive(:activate).and_return(false)
+                patch(:activate, params: { id: resource_category.id })
+                expect(response).to redirect_to(resource_category)
+                expect(flash[:alert]).to eq("There was a problem activating the category.")
             }
         end
     end
