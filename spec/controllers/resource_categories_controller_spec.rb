@@ -57,6 +57,13 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 expect(response).to redirect_to(dashboard_path)
             }
         end
+
+        describe "PATCH #deactivate" do
+            it {
+                patch(:deactivate, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+        end
     end
 
     context 'as a logged out user' do
@@ -109,6 +116,13 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 patch(:activate, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
                 expect(response).to redirect_to(new_user_session_path)
             }
+        end
+        
+        describe "PATCH #deactivate" do
+        it {
+            patch(:deactivate, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+            expect(response).to redirect_to(new_user_session_path)
+        }
         end
     end
 
@@ -173,6 +187,22 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 expect(response).to redirect_to(resource_category)
                 expect(flash[:alert]).to eq("There was a problem activating the category.")
             }
+        end
+
+        describe "PATCH #deactivate" do
+            it {
+                patch(:deactivate, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(resource_category)
+                expect(flash[:notice]).to eq("Category deactivated.")
+            }
+
+            it {
+                expect_any_instance_of(ResourceCategory).to receive(:deactivate).and_return(false)
+                patch(:deactivate, params: { id: resource_category.id })
+                expect(response).to redirect_to(resource_category)
+                expect(flash[:alert]).to eq("There was a problem deactivating the category.")
+            }
+
         end
     end
 
