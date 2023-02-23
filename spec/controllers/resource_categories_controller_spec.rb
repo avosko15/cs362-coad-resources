@@ -43,6 +43,13 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 expect(response).to redirect_to(dashboard_path)
             }
         end
+
+        describe "DELETE #destroy" do
+            it {
+                delete(:destroy, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+        end
     end
 
     context 'as a logged out user' do
@@ -79,6 +86,13 @@ RSpec.describe ResourceCategoriesController, type: :controller do
         describe "PATCH #update" do
             it {
                 patch(:update, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(new_user_session_path)
+            }
+        end
+
+        describe "DELETE #destroy" do
+            it {
+                delete(:destroy, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
                 expect(response).to redirect_to(new_user_session_path)
             }
         end
@@ -126,6 +140,12 @@ RSpec.describe ResourceCategoriesController, type: :controller do
             }
         end
 
+        describe "DELETE #destroy" do
+            it {
+                delete(:destroy, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(resource_categories_path)
+            }
+        end
     end
 
 end
