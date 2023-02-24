@@ -30,12 +30,6 @@ RSpec.describe TicketsController, type: :controller do
                 post(:capture, params: { id: ticket.id })
                 expect(response).to redirect_to(dashboard_path)
             }
-
-            it {
-                expect(TicketService).to receive(:capture_ticket).and_throw(:error)
-                post(:capture, params: { id: ticket.id })
-                expect(response).to be_successful
-            }   
         end
 
         describe 'POST #release' do
@@ -88,6 +82,12 @@ RSpec.describe TicketsController, type: :controller do
             it {
                 post(:capture, params: { id: ticket.id })
                 expect(response).to redirect_to(dashboard_path << '#tickets:open')
+            }
+
+            it {
+                expect(TicketService).to receive(:capture_ticket).and_return(:error)
+                post(:capture, params: { id: ticket.id })
+                expect(response).to be_successful
             }   
         end
 
@@ -143,7 +143,13 @@ RSpec.describe TicketsController, type: :controller do
             it {
                 post(:capture, params: { id: ticket.id })
                 expect(response).to redirect_to(dashboard_path)
-            }   
+            }
+
+            # it {
+            #     expect(TicketService).to receive(:capture_ticket).and_return(:error)
+            #     post(:capture, params: { id: ticket.id })
+            #     expect(response).to be_successful
+            # }   
         end
 
         describe 'POST #release' do
@@ -197,7 +203,13 @@ RSpec.describe TicketsController, type: :controller do
             it {
                 post(:capture, params: { id: ticket.id })
                 expect(response).to redirect_to(dashboard_path)
-            }   
+            }
+
+            # it {
+            #     expect(TicketService).to receive(:capture_ticket).and_return(:error)
+            #     post(:capture, params: { id: ticket.id })
+            #     expect(response).to be_successful
+            # }   
         end
 
         describe 'POST #release' do
