@@ -5,5 +5,9 @@ RSpec.describe ApplicationHelper, type: :helper do
         it "will print Disaster Resource Network if there's no page title" do
             expect(helper.full_title(page_title = '')).to eq("Disaster Resource Network")
         end
+
+        it "will return base title" do
+            expect(helper.full_title(page_title = "Regions")).to eq("Regions | Disaster Resource Network")
+        end
     end
 end
