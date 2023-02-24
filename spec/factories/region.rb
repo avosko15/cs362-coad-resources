@@ -9,7 +9,7 @@ FactoryBot.define do
         
         trait :updatable_region do
             name { :organization }
-            organization_id { create(:organization, :req_fields_organization, :approved).id }
+            organization_id { create(:organization, :approved).id }
         end
     end
 end
