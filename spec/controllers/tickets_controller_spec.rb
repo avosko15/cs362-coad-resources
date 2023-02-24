@@ -4,15 +4,20 @@ RSpec.describe TicketsController, type: :controller do
     let(:ticket) { create(:ticket, :req_fields_ticket) }
     
     context 'as a logged-out user' do
-
         describe 'GET #new' do
             it { expect(get(:new)).to be_successful }
         end
 
         describe 'POST #create' do
             it {
-                post(:create, params: { ticket: ticket.as_json })
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
                 expect(response).to redirect_to(ticket_submitted_path) 
+            }
+
+            it {
+                expect_any_instance_of(Ticket).to receive(:save).and_return(false)
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
+                expect(response).to be_successful
             }
         end
 
@@ -24,6 +29,12 @@ RSpec.describe TicketsController, type: :controller do
             it {
                 post(:capture, params: { id: ticket.id })
                 expect(response).to redirect_to(dashboard_path)
+            }
+
+            it {
+                expect(TicketService).to receive(:capture_ticket).and_throw(:error)
+                post(:capture, params: { id: ticket.id })
+                expect(response).to be_successful
             }   
         end
 
@@ -46,7 +57,6 @@ RSpec.describe TicketsController, type: :controller do
                 expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path)
             }   
         end
-
     end
 
     context 'as an approved organization' do
@@ -59,8 +69,14 @@ RSpec.describe TicketsController, type: :controller do
 
         describe 'POST #create' do
             it {
-                post(:create, params: { ticket: ticket.as_json })
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
                 expect(response).to redirect_to(ticket_submitted_path) 
+            }
+
+            it {
+                expect_any_instance_of(Ticket).to receive(:save).and_return(false)
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
+                expect(response).to be_successful
             }
         end
 
@@ -96,7 +112,6 @@ RSpec.describe TicketsController, type: :controller do
                 expect(delete(:destroy, params: { id: ticket.id })).to redirect_to(dashboard_path)
             }   
         end
-
     end
 
     context 'as an unapproved organization' do
@@ -109,8 +124,14 @@ RSpec.describe TicketsController, type: :controller do
 
         describe 'POST #create' do
             it {
-                post(:create, params: { ticket: ticket.as_json })
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
                 expect(response).to redirect_to(ticket_submitted_path) 
+            }
+
+            it {
+                expect_any_instance_of(Ticket).to receive(:save).and_return(false)
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
+                expect(response).to be_successful
             }
         end
 
@@ -157,8 +178,14 @@ RSpec.describe TicketsController, type: :controller do
 
         describe 'POST #create' do
             it {
-                post(:create, params: { ticket: ticket.as_json })
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
                 expect(response).to redirect_to(ticket_submitted_path) 
+            }
+
+            it {
+                expect_any_instance_of(Ticket).to receive(:save).and_return(false)
+                post(:create, params: { ticket: attributes_for(:ticket, :req_fields_ticket) })
+                expect(response).to be_successful
             }
         end        
 
