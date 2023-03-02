@@ -11,7 +11,6 @@ RSpec.describe 'Creating a Region', type: :feature do
 
         fill_in 'Name', with: 'SOME FAKE REGION'
         click_on 'Add Region'
-        
         expect(current_path).to eq regions_path
         expect(page).to have_text('SOME FAKE REGION')
     end
