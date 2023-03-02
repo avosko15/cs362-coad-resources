@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrganizationsController, type: :controller do
     let(:user) { create(:user) }
-    let (:organization) { create(:organization)}
+    let(:organization) { create(:organization)}
 
     context 'as a logged-in user' do
         before(:each) { sign_in(user) }
