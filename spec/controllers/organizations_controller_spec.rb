@@ -17,10 +17,26 @@ RSpec.describe OrganizationsController, type: :controller do
         
         describe "POST #create" do
             it {
+                #i will delete the line under this once i get mocks working
                 expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
                 post(:create, params: { organization: attributes_for(:organization) })
                 expect(response).to redirect_to(organization_application_submitted_path)
             }
+
+            # it {
+            #     #i may end up not needing this expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
+            #     expect_any_instance_of(Organization).to receive(:save).and_return(false)
+            #     post(:create, params: { organization: attributes_for(:organization) })
+            #     expect(response).to be_successful
+            # }
+            # it {
+            #     #2 expect_any_instance_of
+            #     expect_any_instance_of(UserMailer).
+            # }
+            # it{
+            #     #3 expect_any_instance_of
+            #     expect_any_instance_of(UserMailer).
+            # }
         end
         describe "PUT #update" do
             it {
