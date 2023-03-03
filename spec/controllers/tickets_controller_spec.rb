@@ -97,6 +97,12 @@ RSpec.describe TicketsController, type: :controller do
                 expect(response).to be_successful
                 # expect(response).to redirect_to(dashboard_path << '#tickets:organization')
             }   
+
+            it {
+                expect(TicketService).to receive(:release_ticket).and_return(:error)
+                post(:release, params: { id: ticket.id })
+                expect(response).to be_successful
+            }
         end
 
         describe 'POST #close' do
@@ -104,7 +110,13 @@ RSpec.describe TicketsController, type: :controller do
                 post(:close, params: { id: ticket.id })
                 expect(response).to be_successful
                 # expect(response).to redirect_to(dashboard_path << '#tickets:organization')
-            }   
+            } 
+
+            it {
+                expect(TicketService).to receive(:close_ticket).and_return(:error)
+                post(:close, params: { id: ticket.id })
+                expect(response).to be_successful
+            }  
         end
         
         describe 'POST #destroy' do
