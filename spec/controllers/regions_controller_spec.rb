@@ -125,6 +125,12 @@ RSpec.describe RegionsController, type: :controller do
                 put(:update, params: { id: region.id, region: attributes_for(:region) })
                 expect(response).to redirect_to(@region)
             }
+
+            it {
+                expect_any_instance_of(Region).to receive(:update).and_return(false)
+                put(:update, params: { id: region.id, region: attributes_for(:region) })
+                expect(response).to be_successful
+            }
         end
     
         describe "DELETE #destroy" do
