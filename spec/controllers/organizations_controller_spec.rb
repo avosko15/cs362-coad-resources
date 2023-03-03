@@ -43,6 +43,12 @@ RSpec.describe OrganizationsController, type: :controller do
                 put(:update, params: { id: organization.id, organization: attributes_for(:organization) })
                 expect(response).to redirect_to(dashboard_path)
             }
+
+            # it {
+            #     expect_any_instance_of(Organization).to receive(:update).and_return(nil)
+            #     put(:update, params: { id: organization.id, organization: attributes_for(:organization) })
+            #     expect(response).to be_successful
+            # }
         end
    
         describe "POST #approve" do
@@ -52,6 +58,7 @@ RSpec.describe OrganizationsController, type: :controller do
                 expect(response).to redirect_to(organization_application_submitted_path)
             }
         end
+
         describe "POST #reject" do
             it {
                 expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
@@ -78,7 +85,6 @@ RSpec.describe OrganizationsController, type: :controller do
              }
         end
 
-
         describe "PATCH #update" do
             it {
                 patch(:update, params: { id: organization.id, organization: attributes_for(:organization) })
@@ -92,6 +98,7 @@ RSpec.describe OrganizationsController, type: :controller do
                 expect(response).to redirect_to(new_user_session_path)
             }
         end
+
         describe "POST #reject" do
             it {
                 post(:create, params: { organization: attributes_for(:organization) })
