@@ -185,13 +185,6 @@ RSpec.describe ResourceCategoriesController, type: :controller do
             }
         end
 
-        describe "DELETE #destroy" do
-            it {
-                delete(:destroy, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
-                expect(response).to redirect_to(resource_categories_path)
-            }
-        end
-
         describe "PATCH #activate" do
             it {
                 patch(:activate, params: { id: resource_category.id })
@@ -220,7 +213,13 @@ RSpec.describe ResourceCategoriesController, type: :controller do
                 expect(response).to redirect_to(resource_category)
                 expect(flash[:alert]).to eq("There was a problem deactivating the category.")
             }
-
+        end
+        
+        describe "DELETE #destroy" do
+            it {
+                delete(:destroy, params: { id: resource_category.id, resource_category: attributes_for(:resource_category) })
+                expect(response).to redirect_to(resource_categories_path)
+            }
         end
     end
 
