@@ -65,15 +65,16 @@ RSpec.describe OrganizationsController, type: :controller do
             it { expect(get(:new)).to redirect_to(dashboard_path)}
         end
         
-        # describe "POST #create" do
-        #     it {
-        #         expect_any_instance_of(Organization).to receive(:save).and_return(true)
-        #         expect_any_instance_of(User).to receive(:save).and_return(true)
-        #         expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
-        #         post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
-        #         expect(response).to redirect_to(organization_application_submitted_path)
-        #     }
-
+        describe "POST #create" do
+            it {
+                # expect_any_instance_of(Organization).to receive(:save).and_return(true)
+                # expect_any_instance_of(User).to receive(:save).and_return(true)
+                puts "aaaa"
+                expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
+                post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(organization_application_submitted_path)
+            }
+        end
         #     it {
         #         expect_any_instance_of(Organization).to receive(:save).and_return(false)
         #         post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
@@ -196,13 +197,13 @@ RSpec.describe OrganizationsController, type: :controller do
         #         expect(response).to redirect_to(organization_application_submitted_path)
         #     }
         # end
-    #     describe "POST #reject" do
-    #         it {
-    #             expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
-    #             post(:reject, params: { id: organization.id, organization: attributes_for(:organization) })
-    #             expect(response).to redirect_to(organization_application_submitted_path)
-    #         }
-    #     end
+        # describe "POST #reject" do
+        #     it {
+        #         expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
+        #         post(:reject, params: { id: organization.id, organization: attributes_for(:organization) })
+        #         expect(response).to redirect_to(organization_application_submitted_path)
+        #     }
+        # end
     end
 
 end
