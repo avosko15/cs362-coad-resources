@@ -40,7 +40,7 @@ RSpec.describe User, type: :model do
   # member functions - 3.2 & 4.0
   
   it "returns its own email" do
-    expect(user.to_s).to eq("bario54321@gmail.com")
+    expect(user.to_s).to eq(user.email)
   end
 
   it "has an role on creation" do
