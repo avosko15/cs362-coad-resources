@@ -108,9 +108,11 @@ RSpec.describe TicketsController, type: :controller do
 
         describe 'POST #release' do
             it {
-                post(:release, params: { id: ticket.id })
-                expect(response).to be_successful
-                # expect(response).to redirect_to(dashboard_path << '#tickets:organization')
+                user = create(:user, :organization_approved_user)
+                sign_in(user)
+                test_ticket = create(:ticket, :req_fields_ticket, organization_id: 2)
+                post(:release, params: { id: test_ticket.id })
+                expect(response).to redirect_to(dashboard_path << '#tickets:organization')
             }   
 
             it {
@@ -124,8 +126,8 @@ RSpec.describe TicketsController, type: :controller do
             it {
                 user = create(:user, :organization_approved_user)
                 sign_in(user)
-                post(:close, params: { id: user.organization_id })
-                expect(response).to be_successful
+                test_ticket = create(:ticket, :req_fields_ticket, organization_id: 2)
+                post(:close, params: { id: test_ticket.id })
                 expect(response).to redirect_to(dashboard_path << '#tickets:organization')
             } 
 
