@@ -19,7 +19,6 @@ RSpec.describe OrganizationsController, type: :controller do
 
         describe "POST #create" do
             it {
-                # Do we have to do an expect_any_instance of to get past verify_unapproved?
                 post(:create, params: { organization: attributes_for(:organization) })
                 expect(response).to redirect_to(dashboard_path)
             }
@@ -27,10 +26,15 @@ RSpec.describe OrganizationsController, type: :controller do
 
         describe "PUT #update" do
             it {
+                put(:update, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(organization_path(id: organization.id))
+            }
+
+            it {
                 expect_any_instance_of(Organization).to receive(:update).and_return(nil)
                 put(:update, params: { id: organization.id, organization: attributes_for(:organization) })
                 expect(response).to be_successful
-                }
+            }
             end
 
         describe "POST #approve" do
