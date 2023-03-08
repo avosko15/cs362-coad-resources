@@ -68,9 +68,15 @@ RSpec.describe OrganizationsController, type: :controller do
         
         describe "POST #create" do
             it {
-                expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
+                expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(false)
                 post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
                 expect(response).to redirect_to(organization_application_submitted_path)
+            }
+
+            it {
+                expect_any_instance_of(Organization).to receive(:save).and_return(false)
+                post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to be_successful
             }
         end
 
@@ -148,13 +154,12 @@ RSpec.describe OrganizationsController, type: :controller do
             it { expect(get(:new)).to redirect_to(dashboard_path) }
         end
 
-    #     describe "POST #create" do
-    #         it {
-    #             expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
-    #             post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
-    #             expect(response).to redirect_to(organization_application_submitted_path)
-    #         }
-    #    end
+        describe "POST #create" do
+            it {
+                post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+       end
 
         describe "PATCH #update" do
             it {
@@ -162,20 +167,34 @@ RSpec.describe OrganizationsController, type: :controller do
                 expect(response).to redirect_to(dashboard_path)
                }
          end
-        # describe "POST #approve" do
-        #     it {
-        #         expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
-        #         post(:approve, params: { id: organization.id, organization: attributes_for(:organization) })
-        #         expect(response).to redirect_to(organization_application_submitted_path)
-        #     }
-        # end
-        # describe "POST #reject" do
-        #     it {
-        #         expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
-        #         post(:reject, params: { id: organization.id, organization: attributes_for(:organization) })
-        #         expect(response).to redirect_to(organization_application_submitted_path)
-        #     }
-        # end
+
+        describe "POST #approve" do
+            it {
+                post(:approve, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(organizations_path)
+                expect(flash[:notice]).to eq("Organization #{organization.name} has been approved.")
+            }
+
+            it {
+                expect_any_instance_of(Organization).to receive(:save).and_return(false)
+                post(:approve, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(organization_path(id: organization.id))
+            }
+        end
+
+        describe "POST #reject" do
+            it {
+                post(:reject, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(organizations_path)
+                expect(flash[:notice]).to eq("Organization #{organization.name} has been rejected.")
+            }
+
+            it {
+                expect_any_instance_of(Organization).to receive(:save).and_return(false)
+                post(:reject, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(organization_path(id: organization.id))
+            }
+        end
     end
 
 end
