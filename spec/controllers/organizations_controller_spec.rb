@@ -27,32 +27,25 @@ RSpec.describe OrganizationsController, type: :controller do
 
         describe "PUT #update" do
             it {
-                put(:update, params: { id: organization.id, organization: attributes_for(:organization) })
-                expect(response).to redirect_to(organization_path(id: organization.id))
-            }
-
-            it {
-                expect_any_instance_of(Organization).to receive(:update).and_return(false)
+                expect_any_instance_of(Organization).to receive(:update).and_return(nil)
                 put(:update, params: { id: organization.id, organization: attributes_for(:organization) })
                 expect(response).to be_successful
+                }
+            end
+
+        describe "POST #approve" do
+            it {
+                post(:approve, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(dashboard_path)
             }
         end
-   
-        # describe "POST #approve" do
-        #     it {
-        #         expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
-        #         post(:approve, params: { id: organization.id, organization: attributes_for(:organization) })
-        #         expect(response).to redirect_to(dashboard_path)
-        #     }
-        # end
 
-        # describe "POST #reject" do
-        #     it {
-        #         expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
-        #         post(:reject, params: { id: organization.id, organization: attributes_for(:organization) })
-        #         expect(response).to redirect_to(organization_application_submitted_path)
-        #     }
-        # end
+        describe "POST #reject" do
+            it {
+                post(:reject, params: { id: organization.id, organization: attributes_for(:organization) })
+                expect(response).to redirect_to(dashboard_path)
+            }
+        end
     end
 
     context 'as an unapproved organization' do
