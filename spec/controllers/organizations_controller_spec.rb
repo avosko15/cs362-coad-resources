@@ -173,7 +173,7 @@ RSpec.describe OrganizationsController, type: :controller do
         end
 
         describe "GET #new" do
-            it { expect(get(:new)).to be_successful}
+            it { expect(get(:new)).to redirect_to(dashboard_path) }
         end
 
     #     describe "POST #create" do
