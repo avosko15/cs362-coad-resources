@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RegionsController, type: :controller do
    
-    let (:region) { create(:region)}
+    let(:region) { create(:region)}
     let(:user) { create(:user) }
 
 

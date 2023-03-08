@@ -62,14 +62,13 @@ RSpec.describe OrganizationsController, type: :controller do
         end
 
         describe "GET #new" do
-            it { expect(get(:new)).to redirect_to(dashboard_path)}
+            it { expect(get(:new)).to be_successful}
         end
         
         describe "POST #create" do
             it {
                 # expect_any_instance_of(Organization).to receive(:save).and_return(true)
                 # expect_any_instance_of(User).to receive(:save).and_return(true)
-                puts "aaaa"
                 expect_any_instance_of(UserMailer).to receive(:new_organization_application).and_return(nil)
                 post(:create, params: { id: organization.id, organization: attributes_for(:organization) })
                 expect(response).to redirect_to(organization_application_submitted_path)
@@ -166,7 +165,7 @@ RSpec.describe OrganizationsController, type: :controller do
     end
 
     context 'as an admin' do
-    #     let(:admin) { create(:user, :admin) }
+        let(:admin) { create(:user, :admin) }
         before(:each) { sign_in(admin) }
 
         describe "GET #index" do
@@ -174,7 +173,7 @@ RSpec.describe OrganizationsController, type: :controller do
         end
 
         describe "GET #new" do
-            it { expect(get(:new)).to redirect_to(dashboard_path)}
+            it { expect(get(:new)).to be_successful}
         end
 
     #     describe "POST #create" do

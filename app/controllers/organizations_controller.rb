@@ -88,9 +88,7 @@ class OrganizationsController < ApplicationController
     ).to_h
   end
 
-  def verify_unapproved
-  pp current_user.organization?
-  pp current_user.organization.nil?  
+  def verify_unapproved 
     redirect_to dashboard_path unless current_user.organization? && current_user.organization.nil?
   end
 

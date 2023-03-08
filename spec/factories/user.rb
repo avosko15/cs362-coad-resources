@@ -17,7 +17,7 @@ FactoryBot.define do
 
         trait :organization_unapproved_user do
             role { :organization }
-            organization_id { create(:organization).id }  # made this also a req_fields_organization, can change back if breaks things
+            # organization_id { create(:organization).id }  # made this also a req_fields_organization, can change back if breaks things
         end
 
         trait :admin do
