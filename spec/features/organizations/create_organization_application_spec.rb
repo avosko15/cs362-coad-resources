@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Creating an Organization Application', type: :feature do
-    it 'can be tested' do
+    it 'can be created by a new user' do
         admin_user = create(:user, :admin)
         user = create(:user)
         log_in_as(user)
@@ -35,8 +35,6 @@ RSpec.describe 'Creating an Organization Application', type: :feature do
         choose 'organization_transportation_yes'
 
         click_on 'Apply'
-
-        # save_and_open_page
 
         expect(page).to have_content "Application Submitted"
     end

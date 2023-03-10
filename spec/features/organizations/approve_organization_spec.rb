@@ -7,7 +7,7 @@ RSpec.describe 'Approving an organization', type: :feature do
         organization = create(:organization) # get an organization ready to be approved
         log_in_as(user)
 
-        visit dashboard_path # Naviagate to the dashboard
+        visit dashboard_path # Navigate to the dashboard
 
         click_on 'Organizations'
         click_on 'Pending' # works with or without this line (can find Review before selecting the menu option)
