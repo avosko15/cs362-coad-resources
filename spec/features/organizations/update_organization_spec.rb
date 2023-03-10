@@ -16,6 +16,14 @@ RSpec.describe 'Updating an Organization', type: :feature do
         # edit method to test so I thought I'd put something in here.
         expect(page).to have_content 'edited organization'
     end
+
+    it 'cannot be done by an unapproved organization' do
+        user = create(:user, :organization_unapproved_user)
+        log_in_as(user)
+
+        visit dashboard_path
+        expect(page).not_to have_content 'Edit Organization'
+    end
         
     
 end

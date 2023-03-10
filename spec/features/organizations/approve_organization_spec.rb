@@ -4,14 +4,14 @@ RSpec.describe 'Approving an organization', type: :feature do
 
     it 'can be done from the dashboard' do
         user = create(:user, :admin)
-        organization = create(:organization) # get an organization ready to be approved
+        organization = create(:organization)
         log_in_as(user)
 
-        visit dashboard_path # Navigate to the dashboard
+        visit dashboard_path
 
         click_on 'Organizations'
-        click_on 'Pending' # works with or without this line (can find Review before selecting the menu option)
-        # if we start having issues with this, use save_and_open_page() to troubleshoot -- if you have multiple Review buttons, can 
+        click_on 'Pending' 
+
         click_on 'Review'
         click_on 'Approve'
         
@@ -25,7 +25,7 @@ RSpec.describe 'Approving an organization', type: :feature do
         user = create(:user, organization: organization)
         log_in_as(user)
 
-        visit dashboard_path # don't need this line to pass test
+        visit dashboard_path
        
         visit organization_path(id: not_approved_organization.id) # and see what happens
         expect(page).not_to have_content 'Approve'
