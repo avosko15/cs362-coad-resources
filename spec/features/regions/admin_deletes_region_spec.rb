@@ -12,6 +12,7 @@ RSpec.describe 'Deleting a Region', type: :feature do
 
         click_on region.name
         click_on 'Delete'
+        #guess I dont need the flash alert
         #expect(flash[:alert]).to eq("Are you sure? This cannot be undone. These tickets will have an Unspecified region.")
         #click_on 'OK'
         expect(current_path).to eq regions_path
